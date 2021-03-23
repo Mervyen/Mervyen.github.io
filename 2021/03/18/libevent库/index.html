@@ -30,7 +30,7 @@
 <meta property="og:image" content="http://yoursite.com/images/libevent_veison.png">
 <meta property="og:image" content="http://yoursite.com/images/libevent_initFunction.png">
 <meta property="article:published_time" content="2021-03-18T15:15:00.000Z">
-<meta property="article:modified_time" content="2021-03-18T15:17:55.497Z">
+<meta property="article:modified_time" content="2021-03-23T14:45:52.100Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://yoursite.com/images/libevent_openssl_error.png">
@@ -203,6 +203,75 @@
 
        return (base);
  }
+</code></pre>
+<h3 id="3-2-event-new"><a href="#3-2-event-new" class="headerlink" title="3.2 event_new()"></a>3.2 event_new()</h3><pre><code class="lang-c++">event *event_new(struct event_base *, evutil_socket_t, short, event_callback_fn, void *);
+</code></pre>
+<p>分配内存并注册一个新的event等待加入event_base,并且返回该event。<code>event_new</code>完成两件事1.分配内存 2.注册<code>event_assign()</code></p>
+<p>具体参数说明如下</p>
+<blockquote>
+<ol>
+<li><p>event_base* : 说明此event附属于哪个event_base</p>
+</li>
+<li><p>evutil_socket_t:  感兴趣的事件，如socket,fd,signal等</p>
+</li>
+<li><p>short: 当感兴趣的事件具有<strong>什么样的状态</strong>时就去调用回调函数</p>
+<blockquote>
+<p>EV_READ: 事件可读</p>
+<p>EV_WRITE: 事件可写</p>
+<p>EV_SIGNAL: 事件信号量</p>
+<p>EV_TIMEOUT: 事件超时</p>
+<hr>
+<p>EV_PERSIST: 永久将此event添加,直到调用event_del()删除此event</p>
+<p>EV_ET: 与EV_READ,EV_WRITE兼容，告诉libevent使用边缘触发(只在一些特定的后端能实现)</p>
+</blockquote>
+</li>
+<li><p>event_callback_fn: 当事件active之后,此回调函数会执行</p>
+<pre><code class="lang-c++">void (*)(int fd ,short events,void *arg)
+</code></pre>
+<blockquote>
+<p>fd: socket,fd,signal</p>
+<p>events: 当前回调是被什么EV_*flags所激活的</p>
+<p>arg: 需要传递给回调函数的参数</p>
+</blockquote>
+</li>
+<li><p>void*: 当回调函数执行时,需要传入的参数</p>
+</li>
+</ol>
+</blockquote>
+<h3 id="3-3-event-add"><a href="#3-3-event-add" class="headerlink" title="3.3 event_add()"></a>3.3 event_add()</h3><p>将已经分配好内存(allocated)并且注册好(assigned)的event加入到event_base中去。</p>
+<pre><code class="lang-c++">int event_add(struct event *ev, const struct timeval *timeout);
+</code></pre>
+<blockquote>
+<ol>
+<li>ev: 需要添加进event_base的event</li>
+<li>timeout: 如果是将event设置成了EV_TIMEOUT，此处需要传入多久时间为timeout。如果是非EV_TIMEOUT则传入<code>nullptr</code>或者<code>NULL</code></li>
+</ol>
+</blockquote>
+<h3 id="3-4-event-dispatch"><a href="#3-4-event-dispatch" class="headerlink" title="3.4 event_dispatch()"></a>3.4 event_dispatch()</h3><p>开启已经设置好的event_loop</p>
+<pre><code class="lang-c++">int event_base_dispatch(struct event_base *);
+</code></pre>
+<blockquote>
+<ol>
+<li>event_base: 需要开启event_loop的event_base</li>
+</ol>
+</blockquote>
+<h3 id="3-5-event-base-loopexit"><a href="#3-5-event-base-loopexit" class="headerlink" title="3.5 event_base_loopexit()"></a>3.5 event_base_loopexit()</h3><p>会处理完<strong>定时器</strong>到期<strong>之后</strong>的下一个loop之后再退出loop，即定时器到期后再跑一个loop就退出</p>
+<pre><code class="lang-c++">int event_base_loopexit(struct event_base *, const struct timeval *);
+</code></pre>
+<blockquote>
+<ol>
+<li>event_base: 需要退出的base</li>
+<li>timeval: 多长时间后退出loop</li>
+</ol>
+</blockquote>
+<h3 id="3-6-event-base-loopbreak"><a href="#3-6-event-base-loopbreak" class="headerlink" title="3.6 event_base_loopbreak()"></a>3.6 event_base_loopbreak()</h3><p>会处理完下一个event之后直接退出当前loop,词义等同于while里面的break,再开始跑下一个loop</p>
+<pre><code class="lang-c++">int event_base_loopbreak(struct event_base *);
+</code></pre>
+<h3 id="3-7-event-free"><a href="#3-7-event-free" class="headerlink" title="3.7 event _free()"></a>3.7 event _free()</h3><p>释放掉event的内存，如果event正在pending或者active，会先将event至为non-pending或者non-active</p>
+<pre><code class="lang-c++">void event_free(struct event *);
+</code></pre>
+<h3 id="3-8-event-free-base"><a href="#3-8-event-free-base" class="headerlink" title="3.8 event_free_base()"></a>3.8 event_free_base()</h3><p>释放掉event_base相关的内存，但如果是回调函数所使用的参数，<strong>不会释放</strong></p>
+<pre><code class="lang-c++">void event_free_base(struce event_base *);
 </code></pre>
 
         </div>
