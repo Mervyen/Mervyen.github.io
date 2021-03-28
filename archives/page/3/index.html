@@ -145,7 +145,7 @@
                 
 <div class="primary-container content-box is-flex-desktop clear-padding bottom-line" style="margin-bottom: 25px;">
     <div class="column  is-7-desktop">
-        <a href="/2020/07/19/VScode编译socket时链接库问题/">
+        <a href="/2020/07/21/QT串口随机切分帧问题/">
             <div class="full-height post-hover"
                  style="
                          background-image: url('');
@@ -155,7 +155,7 @@
                          ">
                     <div class=" is-flex flex-column center content has-text-centered full-height has-padding content-bg-mask">
                         <h1 class="title text-shadow" style="margin-bottom: 15px;">
-                            VScode编译socket时链接库问题
+                            QT串口随机切分帧问题
                         </h1>
                         <div>
                         
@@ -163,14 +163,10 @@
                         
                         </div>
                         <p class="post-content-text is-marginless has-padding text-shadow">
-                            VScode编译socket时链接库问题
-最近换了vscode做Udp，在VS下运行没问题的代码放到了VScode环境下就报错
-
-vscode terminal with exit code1
-
-在网上查了不少资料可算找到了，应该就是g..
+                            QT串口随机切分帧问题在QT调试串口中，发现串口接收帧的时候并不是一次读完一整个数据帧。而是会给数据帧做随机切分，需要设置一个buffer来不断存取数据帧来装入最后的m_res中。
+假设同时传输数据帧A,数据帧B。帧头标识FRAMEST..
                         </p>
-                        <p class="date text-shadow">2020-07-19</p>
+                        <p class="date text-shadow">2020-07-21</p>
                         <button class="button is-info is-small">Read More</button>
                     </div>
             </div>
@@ -178,6 +174,27 @@ vscode terminal with exit code1
     </div>
     <div class="column is-5 is-hidden-touch" style="padding-left: 0;">
         <div class="full-height is-flex flex-column justify-space-between" style="min-height: 350px;">
+            
+                
+<a class="post-hover" href="/2020/07/19/VScode编译socket时链接库问题/" style="height: 48.5%">
+    <div class="content is-hidden-touch full-height overflow-hidden" style="background-image: url('')">
+        <div class="content-bg-mask full-width full-height has-padding">
+            <h3 class="title is-marginless text-shadow">
+                VScode编译socket时链接库问题
+            </h3>
+            
+            
+            
+            <p class="sub-title text-shadow"></p>
+            <p class="is-marginless text-shadow post-content-text">
+                VScode编译socket时链接库问题
+最近换了vscode做Udp，在VS下运行没问题的代码..
+            </p>
+            <p class="date text-shadow is-marginless">2020-07-19</p>
+        </div>
+    </div>
+</a>
+            
             
                 
 <a class="post-hover" href="/2020/07/17/Hexo部署报错FATAL-can-not-read-a-block-mapping-entry/" style="height: 48.5%">
@@ -192,30 +209,6 @@ vscode terminal with exit code1
             <p class="sub-title text-shadow"></p>
             <p class="is-marginless text-shadow post-content-text">
                 YAMLException: cannot read a block mapping entry..
-            </p>
-            <p class="date text-shadow is-marginless">2020-07-17</p>
-        </div>
-    </div>
-</a>
-            
-            
-                
-<a class="post-hover" href="/2020/07/17/git空白文件上传问题/" style="height: 48.5%">
-    <div class="content is-hidden-touch full-height overflow-hidden" style="background-image: url('')">
-        <div class="content-bg-mask full-width full-height has-padding">
-            <h3 class="title is-marginless text-shadow">
-                git空白文件上传问题
-            </h3>
-            
-            
-            <span class="tag is-post-tag">git</span>
-            
-            
-            <p class="sub-title text-shadow"></p>
-            <p class="is-marginless text-shadow post-content-text">
-                git添加本地新文件夹
-git命令不可以添加空白文件夹，文件里面必须有文件才可以使用
-假设新建一..
             </p>
             <p class="date text-shadow is-marginless">2020-07-17</p>
         </div>
@@ -227,6 +220,27 @@ git命令不可以添加空白文件夹，文件里面必须有文件才可以�
     <div class="column is-12 is-hidden-desktop">
         
         
+<a class="post-hover" href="/2020/07/19/VScode编译socket时链接库问题/" style="height: 48.5%">
+    <div class="content is-hidden-touch full-height overflow-hidden" style="background-image: url('')">
+        <div class="content-bg-mask full-width full-height has-padding">
+            <h3 class="title is-marginless text-shadow">
+                VScode编译socket时链接库问题
+            </h3>
+            
+            
+            
+            <p class="sub-title text-shadow"></p>
+            <p class="is-marginless text-shadow post-content-text">
+                VScode编译socket时链接库问题
+最近换了vscode做Udp，在VS下运行没问题的代码..
+            </p>
+            <p class="date text-shadow is-marginless">2020-07-19</p>
+        </div>
+    </div>
+</a>
+        
+        
+        
 <a class="post-hover" href="/2020/07/17/Hexo部署报错FATAL-can-not-read-a-block-mapping-entry/" style="height: 48.5%">
     <div class="content is-hidden-touch full-height overflow-hidden" style="background-image: url('')">
         <div class="content-bg-mask full-width full-height has-padding">
@@ -245,34 +259,40 @@ git命令不可以添加空白文件夹，文件里面必须有文件才可以�
     </div>
 </a>
         
-        
-        
-<a class="post-hover" href="/2020/07/17/git空白文件上传问题/" style="height: 48.5%">
-    <div class="content is-hidden-touch full-height overflow-hidden" style="background-image: url('')">
-        <div class="content-bg-mask full-width full-height has-padding">
-            <h3 class="title is-marginless text-shadow">
-                git空白文件上传问题
-            </h3>
-            
-            
-            <span class="tag is-post-tag">git</span>
-            
-            
-            <p class="sub-title text-shadow"></p>
-            <p class="is-marginless text-shadow post-content-text">
-                git添加本地新文件夹
-git命令不可以添加空白文件夹，文件里面必须有文件才可以使用
-假设新建一..
-            </p>
-            <p class="date text-shadow is-marginless">2020-07-17</p>
-        </div>
-    </div>
-</a>
-        
     </div>
 </div>
 
                     
+                    
+                
+                    
+                        <div class="content-box  is-hidden-desktop" style="margin-bottom: 27px;">
+                            <a class="post-hover" href="/2020/07/19/VScode编译socket时链接库问题/">
+                            <div class="columns" style="min-height: 230px;">
+                                
+                                <div class="column is-8-desktop post-content is-flex align-center">
+                                    <div class="content">
+                                        <h3>VScode编译socket时链接库问题</h3>
+                                        
+                                        <p>
+                                            
+                                        </p>
+                                        <p>
+                                            VScode编译socket时链接库问题
+最近换了vscode做Udp，在VS下运行没问题的代码放到了VScode环境下就报错
+
+vscode terminal with exit code1
+
+在网上查了不少资料可算找到了，应该就是g++编译时链接库的问题。在VS下面只需要写如下代码就可以正常编译了。
+#include&lt;Winsock2.h&gt..
+                                        </p>
+                                        <p>2020-07-19</p>
+                                        <button class="button is-small">Read More</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                        </div>
                     
                 
                     
@@ -303,7 +323,7 @@ YAMLException: ca..
                     
                 
                     
-                        <div class="content-box  is-hidden-desktop" style="margin-bottom: 27px;">
+                        <div class="content-box  " style="margin-bottom: 27px;">
                             <a class="post-hover" href="/2020/07/17/git空白文件上传问题/">
                             <div class="columns" style="min-height: 230px;">
                                 
