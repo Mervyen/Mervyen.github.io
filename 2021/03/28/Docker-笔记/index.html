@@ -25,7 +25,7 @@
 <meta property="og:description" content="安装中出现的docker-ce,docker-ce-cli,containerd.io.各自有什么用，查找一翻后得到如下结果：  containerd.io : daemon containerd. It works independently on the docker packages, and it is required by the docker packages.(一个守护进程)  c">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-03-28T13:17:47.000Z">
-<meta property="article:modified_time" content="2021-03-28T13:19:35.079Z">
+<meta property="article:modified_time" content="2021-03-30T14:12:53.565Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="docker">
 <meta name="twitter:card" content="summary">
@@ -389,7 +389,7 @@
 </tbody>
 </table>
 </div>
-<h3 id="3-1-新建启动容器"><a href="#3-1-新建启动容器" class="headerlink" title="3.1 新建启动容器"></a><strong>3.1 新建启动容器</strong></h3><blockquote>
+<h3 id="3-1-新建并启动容器"><a href="#3-1-新建并启动容器" class="headerlink" title="3.1 新建并启动容器"></a><strong>3.1 新建并启动容器</strong></h3><blockquote>
 <ul>
 <li><p>命令<code>docker run [OPTIONS] ImageName [COMMAND] [ARG...]</code></p>
 </li>
@@ -505,7 +505,37 @@
 <li>命令：<code>docker inspect CONTANINERID/NAMES</code> </li>
 </ul>
 </blockquote>
-
+<h2 id="4-Docker数据卷"><a href="#4-Docker数据卷" class="headerlink" title="4. Docker数据卷"></a>4. Docker数据卷</h2><p>docker的数据卷是为了</p>
+<h3 id="4-1-容器的持久化"><a href="#4-1-容器的持久化" class="headerlink" title="4.1 容器的持久化"></a><strong>4.1 容器的持久化</strong></h3><p>在容器exit后，如果在宿主机修改文件，容器内的文件任然会同步</p>
+<blockquote>
+<ul>
+<li><p>命令：<code>docker run -it -v /宿主机绝对路径目录:/容器内目录 imagesName</code></p>
+<blockquote>
+<p>容器内目录可读可写</p>
+</blockquote>
+</li>
+<li><p>命令：<code>docker run -it -v /宿主机绝对路径目录:/容器内目录:ro imagesName</code></p>
+<blockquote>
+<p>容器内目录仅可读，不可做任何修改</p>
+</blockquote>
+</li>
+</ul>
+</blockquote>
+<h3 id="4-2容器间数据的共享和继承"><a href="#4-2容器间数据的共享和继承" class="headerlink" title="4.2容器间数据的共享和继承"></a><strong>4.2容器间数据的共享和继承</strong></h3><p>可以在Dockerfile中使用VOLUME关键字，来构建一个自定义的新镜像。此新镜像可以用来实现数据的共享和<strong>继承</strong>。</p>
+<p>假设我们使用Dockerfile构建了一个<code>imageA</code>。</p>
+<p>1.<code>docker run -it --name fatherDC imageA</code>。以<code>imageA</code>镜像启动一个名为<code>dc1</code>的父容器。</p>
+<p>2.<code>docker run -it --name sonDC1 --volumes-from fatherDC imageA</code>。以<code>imageA</code>镜像启动一个名为<code>sonDC1</code>的子容器，且该子容器<code>sonDC1</code>继承父容器<code>fatherDC</code>。</p>
+<p>3.<code>docker run -it --name sonDC2 --volumes-from fatherDC imageA</code>。以<code>imageA</code>镜像启动一个名为<code>sonDC2</code>的子容器，且该子容器<code>sonDC2</code>继承父容器<code>fatherDC</code>。</p>
+<p>当我们运行了这三个容器之后，修改任意一个容器的数据卷，另外两个容器的数据卷都会同步被修改。</p>
+<h2 id="5-Dockerfile"><a href="#5-Dockerfile" class="headerlink" title="5. Dockerfile"></a><strong>5. Dockerfile</strong></h2><p>Dockerfile是用来构建(build)Docker image的文件</p>
+<p>Dockerfile基础：</p>
+<blockquote>
+<ol>
+<li>每个保留字均为大写字母，且后面必须跟随至少一个参数</li>
+<li>文件从上至下执行，每执行一个命令会生成一个新的镜像层，并commit，下一条指令会在新的镜像层上再执行提交，层层包裹。</li>
+</ol>
+</blockquote>
+<h3 id="5-1-Dockerfile关键字"><a href="#5-1-Dockerfile关键字" class="headerlink" title="5.1 Dockerfile关键字"></a><strong>5.1 Dockerfile关键字</strong></h3>
         </div>
         <div class="post-reply">
             
