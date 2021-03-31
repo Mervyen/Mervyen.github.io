@@ -24,11 +24,15 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="安装中出现的docker-ce,docker-ce-cli,containerd.io.各自有什么用，查找一翻后得到如下结果：  containerd.io : daemon containerd. It works independently on the docker packages, and it is required by the docker packages.(一个守护进程)  c">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://yoursite.com/images/dockerFile_before.png">
+<meta property="og:image" content="http://yoursite.com/images/dockerFile_after.png">
+<meta property="og:image" content="http://yoursite.com/images/dockerFile_result.png">
 <meta property="article:published_time" content="2021-03-28T13:17:47.000Z">
-<meta property="article:modified_time" content="2021-03-30T14:12:53.565Z">
+<meta property="article:modified_time" content="2021-03-31T15:04:39.426Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="docker">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/images/dockerFile_before.png">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -535,7 +539,51 @@
 <li>文件从上至下执行，每执行一个命令会生成一个新的镜像层，并commit，下一条指令会在新的镜像层上再执行提交，层层包裹。</li>
 </ol>
 </blockquote>
-<h3 id="5-1-Dockerfile关键字"><a href="#5-1-Dockerfile关键字" class="headerlink" title="5.1 Dockerfile关键字"></a><strong>5.1 Dockerfile关键字</strong></h3>
+<h3 id="5-1-Dockerfile编写"><a href="#5-1-Dockerfile编写" class="headerlink" title="5.1 Dockerfile编写"></a><strong>5.1 Dockerfile编写</strong></h3><p>直接使用例子来学习关键字，最近正好写了一个多线程的程序去验证atomic类实现线程间同步，且使用了libevent库</p>
+<p>假设现在需求如下</p>
+<blockquote>
+<ol>
+<li>有一个ubuntu系统</li>
+<li>安装的有libevent网络第三方库</li>
+<li>安装的有vim,make,g++</li>
+</ol>
+</blockquote>
+<h4 id="5-1-1编写dockerfile"><a href="#5-1-1编写dockerfile" class="headerlink" title="5.1.1编写dockerfile"></a><strong>5.1.1编写dockerfile</strong></h4><pre><code class="lang-dockerfile">#the base container
+FROM ubuntu
+#the maintainer name and email
+MAINTAINER Mervyen&lt;xxxx@gmail.com&gt;
+#mkdir the libevent folder
+RUN mkdir libeventSourceTar
+#install vim make g++
+RUN apt update &amp;&amp; apt install -y \
+    vim \
+    make \
+    g++
+#environment
+ENV LIBEVENTPATH /libeventSourceTar
+#Add and untar the libevent to the container
+ADD libevent-2.1.12-stable.tar.gz $LIBEVENTPATH
+#copy c++ sourceFile 
+COPY atomic.cpp /
+#install the libevent
+RUN cd $LIBEVENTPATH/libevent-2.1.12-stable &amp;&amp;\
+    ./configure --disable-openssl -prefix=/usr/local/libevent2.1.12 &amp;&amp;\
+    make &amp;&amp;\
+    make install
+#CMD
+CMD /bin/bash
+</code></pre>
+<p>按照如上所示的dockerfile编写之后，需要将<code>atomic.cpp</code>，<code>libevent-2.1.12-stable.tar.gz</code>和<code>DockerFile_ubuntuWithlibevent</code>放在同一个文件夹内，如下图所示：<strong>(此处的images名有错误，必须全部为小写)</strong></p>
+<p><img src="/images/dockerFile_before.png" alt=""></p>
+<h4 id="5-1-2-执行build命令"><a href="#5-1-2-执行build命令" class="headerlink" title="5.1.2 执行build命令"></a><strong>5.1.2 执行build命令</strong></h4><p>在此目录下运行命令<code>docker build -f DockerFile_ubuntuWithLibevent -t zzzy/ubuntu_with_libevent .</code></p>
+<p>注意命令的最后有一个小点！执行完成之后且成功的图如下所示：</p>
+<p><img src="/images/dockerFile_after.png" alt=""></p>
+<h4 id="5-1-3-验证是否成功"><a href="#5-1-3-验证是否成功" class="headerlink" title="5.1.3 验证是否成功"></a><strong>5.1.3 验证是否成功</strong></h4><p>执行命令<code>docker run -it zzzy/ubuntu_with_libevent</code>进入container内，查看各个命令是否成功，具体看如图的标识</p>
+<blockquote>
+<p>libevent安装需要make和g++，源生的ubuntu镜像是不带这两个东西的，所以libevent只要能够安装成功，那么make和g++一定是安装成功了。</p>
+</blockquote>
+<p><img src="/images/dockerFile_result.png" alt=""></p>
+
         </div>
         <div class="post-reply">
             
