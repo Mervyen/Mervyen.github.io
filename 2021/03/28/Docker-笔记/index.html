@@ -17,18 +17,18 @@
   
   <title>Docker_笔记 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="安装中出现的docker-ce,docker-ce-cli,containerd.io.各自有什么用，查找一翻后得到如下结果：  containerd.io : daemon containerd. It works independently on the docker packages, and it is required by the docker packages.(一个守护进程)  c">
+  <meta name="description" content="Docker笔记安装中出现的docker-ce,docker-ce-cli,containerd.io.各自有什么用，查找一翻后得到如下结果：  containerd.io : daemon containerd. It works independently on the docker packages, and it is required by the docker packages.(一个">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Docker_笔记">
 <meta property="og:url" content="http://yoursite.com/2021/03/28/Docker-%E7%AC%94%E8%AE%B0/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="安装中出现的docker-ce,docker-ce-cli,containerd.io.各自有什么用，查找一翻后得到如下结果：  containerd.io : daemon containerd. It works independently on the docker packages, and it is required by the docker packages.(一个守护进程)  c">
+<meta property="og:description" content="Docker笔记安装中出现的docker-ce,docker-ce-cli,containerd.io.各自有什么用，查找一翻后得到如下结果：  containerd.io : daemon containerd. It works independently on the docker packages, and it is required by the docker packages.(一个">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://yoursite.com/images/dockerFile_before.png">
 <meta property="og:image" content="http://yoursite.com/images/dockerFile_after.png">
 <meta property="og:image" content="http://yoursite.com/images/dockerFile_result.png">
 <meta property="article:published_time" content="2021-03-28T13:17:47.000Z">
-<meta property="article:modified_time" content="2021-03-31T15:04:39.426Z">
+<meta property="article:modified_time" content="2021-04-02T15:08:27.159Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="docker">
 <meta name="twitter:card" content="summary">
@@ -167,7 +167,7 @@
             
         </div>
         <div class="content" style="overflow: auto">
-            <p>安装中出现的<code>docker-ce</code>,<code>docker-ce-cli</code>,<code>containerd.io</code>.各自有什么用，查找一翻后得到<a href="https://stackoverflow.com/questions/58741267/containerd-io-vs-docker-ce-cli-vs-docker-ce-what-are-the-differences-and-what-d" target="_blank" rel="noopener">如下结果</a>：</p>
+            <h1 id="Docker笔记"><a href="#Docker笔记" class="headerlink" title="Docker笔记"></a>Docker笔记</h1><p>安装中出现的<code>docker-ce</code>,<code>docker-ce-cli</code>,<code>containerd.io</code>.各自有什么用，查找一翻后得到<a href="https://stackoverflow.com/questions/58741267/containerd-io-vs-docker-ce-cli-vs-docker-ce-what-are-the-differences-and-what-d" target="_blank" rel="noopener">如下结果</a>：</p>
 <blockquote>
 <p><strong>containerd.io</strong> : daemon <a href="https://containerd.io/" target="_blank" rel="noopener">containerd</a>. It <a href="https://containerd.io/docs/getting-started/" target="_blank" rel="noopener">works</a> independently on the docker packages, and it is required by the docker packages.(一个守护进程)</p>
 <blockquote>
@@ -526,6 +526,7 @@
 </ul>
 </blockquote>
 <h3 id="4-2容器间数据的共享和继承"><a href="#4-2容器间数据的共享和继承" class="headerlink" title="4.2容器间数据的共享和继承"></a><strong>4.2容器间数据的共享和继承</strong></h3><p>可以在Dockerfile中使用VOLUME关键字，来构建一个自定义的新镜像。此新镜像可以用来实现数据的共享和<strong>继承</strong>。</p>
+<p>如果想要查看宿主机的目录在什么地方，可以使用<code>docker inspect containerID</code>在里面会有宿主机的目录。</p>
 <p>假设我们使用Dockerfile构建了一个<code>imageA</code>。</p>
 <p>1.<code>docker run -it --name fatherDC imageA</code>。以<code>imageA</code>镜像启动一个名为<code>dc1</code>的父容器。</p>
 <p>2.<code>docker run -it --name sonDC1 --volumes-from fatherDC imageA</code>。以<code>imageA</code>镜像启动一个名为<code>sonDC1</code>的子容器，且该子容器<code>sonDC1</code>继承父容器<code>fatherDC</code>。</p>
@@ -554,7 +555,7 @@ FROM ubuntu
 MAINTAINER Mervyen&lt;xxxx@gmail.com&gt;
 #mkdir the libevent folder
 RUN mkdir libeventSourceTar
-#install vim make g++
+#install vim and make
 RUN apt update &amp;&amp; apt install -y \
     vim \
     make \
@@ -566,7 +567,7 @@ ADD libevent-2.1.12-stable.tar.gz $LIBEVENTPATH
 #copy c++ sourceFile 
 COPY atomic.cpp /
 #install the libevent
-RUN cd $LIBEVENTPATH/libevent-2.1.12-stable &amp;&amp;\
+RUN cd $LIBEVENTPATH/libevent-2.1.12-stable &amp;&amp; \
     ./configure --disable-openssl -prefix=/usr/local/libevent2.1.12 &amp;&amp;\
     make &amp;&amp;\
     make install
@@ -583,6 +584,21 @@ CMD /bin/bash
 <p>libevent安装需要make和g++，源生的ubuntu镜像是不带这两个东西的，所以libevent只要能够安装成功，那么make和g++一定是安装成功了。</p>
 </blockquote>
 <p><img src="/images/dockerFile_result.png" alt=""></p>
+<h3 id="5-2-Dockerfile常用命令"><a href="#5-2-Dockerfile常用命令" class="headerlink" title="5.2 Dockerfile常用命令"></a><strong>5.2 Dockerfile常用命令</strong></h3><p>Dockerfile会生成一个镜像(image)，然后再用此自定义的镜像(image)去生成一个容器(container)。</p>
+<blockquote>
+<p>FORM：基础镜像，当前的镜像是基于哪个镜像的</p>
+<p>MANTAINER：维护者，一些作者信息</p>
+<p>RUN：在build镜像时，在新的镜像里面执行的命令，即使该镜像拥有这条命令的结果</p>
+<p>EXPOSE：当前容器对外开放的端口</p>
+<p>WORKDIR：容器启动后默认进入的路径</p>
+<p>ENV：设置环境变量，类似c++里面的#define。在使用时在其前加上<code>$</code></p>
+<p>ADD：将文件拷贝进镜像，并且会自动处理URL或解压tar文件</p>
+<p>COPY：将文件拷贝进镜像</p>
+<p>VOLUME：容器数据卷，在dockerfile里面的VOLUME书写的目录只是容器里面的目录。宿主机的数据卷的目录参考上文4.2节</p>
+<p>CMD：容器启动时运行的命令，当使用<code>docker run images [command]</code>的时候，<code>[command]</code>可以覆盖dockerfile里面的CMD命令</p>
+<p>ENTRYPOINT：容器启动时运行的命令，可以指定参数。然后和ENTRTPOINT的命令组成一条新的命令。</p>
+<p>ONBUILD：当构建一个被继承的Dockerfile时运行命令，父镜像在被子继承后父镜像的onbuild被触发</p>
+</blockquote>
 
         </div>
         <div class="post-reply">
