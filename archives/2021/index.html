@@ -145,31 +145,32 @@
                 
 <div class="primary-container content-box is-flex-desktop clear-padding bottom-line" style="margin-bottom: 25px;">
     <div class="column  is-7-desktop">
-        <a href="/2021/04/07/网络I-O中的同步与异步，阻塞与非阻塞/">
+        <a href="/2021/06/16/c-async/">
             <div class="full-height post-hover"
                  style="
-                         background-image: url('/images/IO_block1.png');
+                         background-image: url('/images/async_destructor.png');
                          height: 350px;
                          background-size: cover;
                          background-repeat: no-repeat;
                          ">
                     <div class=" is-flex flex-column center content has-text-centered full-height has-padding content-bg-mask">
                         <h1 class="title text-shadow" style="margin-bottom: 15px;">
-                            网络I/O中的同步与异步，阻塞与非阻塞
+                            c++_async()
                         </h1>
                         <div>
                         
+                            `
+                                <span class="tag is-post-tag">c++</span>
                             
                         
                         </div>
                         <p class="post-content-text is-marginless has-padding text-shadow">
-                            
-最近阅读了libevent源码之后，决定对reactor模型进行一个整理，在整理之前需要明白I/O复用的含义，明白I/O复用之前，需要明白基本的I/O模型(unix下)
+                            1.wait_for或wait_unitil
+此小节更详细的解释可在《Effective Modern c++》第七章查看
 
-1.同步异步，阻塞非阻塞
-网上关于同步，异步和阻塞，非阻塞的说..
+在使用这两个函数，且将判断放入while() 时需要注意将任务返回std::future_status::de..
                         </p>
-                        <p class="date text-shadow">2021-04-07</p>
+                        <p class="date text-shadow">2021-06-16</p>
                         <button class="button is-info is-small">Read More</button>
                     </div>
             </div>
@@ -179,6 +180,27 @@
         <div class="full-height is-flex flex-column justify-space-between" style="min-height: 350px;">
             
                 
+<a class="post-hover" href="/2021/04/07/网络I-O中的同步与异步，阻塞与非阻塞/" style="height: 48.5%">
+    <div class="content is-hidden-touch full-height overflow-hidden" style="background-image: url('/images/IO_block1.png')">
+        <div class="content-bg-mask full-width full-height has-padding">
+            <h3 class="title is-marginless text-shadow">
+                网络I/O中的同步与异步，阻塞与非阻塞
+            </h3>
+            
+            
+            
+            <p class="sub-title text-shadow"></p>
+            <p class="is-marginless text-shadow post-content-text">
+                
+最近阅读了libevent源码之后，决定对reactor模型进行一个整理，在整理之前需要明白I..
+            </p>
+            <p class="date text-shadow is-marginless">2021-04-07</p>
+        </div>
+    </div>
+</a>
+            
+            
+                
 <a class="post-hover" href="/2021/03/28/Docker-笔记/" style="height: 48.5%">
     <div class="content is-hidden-touch full-height overflow-hidden" style="background-image: url('/images/dockerFile_before.png')">
         <div class="content-bg-mask full-width full-height has-padding">
@@ -195,28 +217,6 @@
                 Docker笔记安装中出现的docker-ce,docker-ce-cli,containerd..
             </p>
             <p class="date text-shadow is-marginless">2021-03-28</p>
-        </div>
-    </div>
-</a>
-            
-            
-                
-<a class="post-hover" href="/2021/03/18/libevent库/" style="height: 48.5%">
-    <div class="content is-hidden-touch full-height overflow-hidden" style="background-image: url('/images/libevent_openssl_error.png')">
-        <div class="content-bg-mask full-width full-height has-padding">
-            <h3 class="title is-marginless text-shadow">
-                libevent库
-            </h3>
-            
-            
-            
-            <p class="sub-title text-shadow"></p>
-            <p class="is-marginless text-shadow post-content-text">
-                libevent库1.make安装从libevent官网下载stable版本的源文件
-
-tar ..
-            </p>
-            <p class="date text-shadow is-marginless">2021-03-18</p>
         </div>
     </div>
 </a>
@@ -226,6 +226,27 @@ tar ..
     <div class="column is-12 is-hidden-desktop">
         
         
+<a class="post-hover" href="/2021/04/07/网络I-O中的同步与异步，阻塞与非阻塞/" style="height: 48.5%">
+    <div class="content is-hidden-touch full-height overflow-hidden" style="background-image: url('/images/IO_block1.png')">
+        <div class="content-bg-mask full-width full-height has-padding">
+            <h3 class="title is-marginless text-shadow">
+                网络I/O中的同步与异步，阻塞与非阻塞
+            </h3>
+            
+            
+            
+            <p class="sub-title text-shadow"></p>
+            <p class="is-marginless text-shadow post-content-text">
+                
+最近阅读了libevent源码之后，决定对reactor模型进行一个整理，在整理之前需要明白I..
+            </p>
+            <p class="date text-shadow is-marginless">2021-04-07</p>
+        </div>
+    </div>
+</a>
+        
+        
+        
 <a class="post-hover" href="/2021/03/28/Docker-笔记/" style="height: 48.5%">
     <div class="content is-hidden-touch full-height overflow-hidden" style="background-image: url('/images/dockerFile_before.png')">
         <div class="content-bg-mask full-width full-height has-padding">
@@ -246,32 +267,44 @@ tar ..
     </div>
 </a>
         
-        
-        
-<a class="post-hover" href="/2021/03/18/libevent库/" style="height: 48.5%">
-    <div class="content is-hidden-touch full-height overflow-hidden" style="background-image: url('/images/libevent_openssl_error.png')">
-        <div class="content-bg-mask full-width full-height has-padding">
-            <h3 class="title is-marginless text-shadow">
-                libevent库
-            </h3>
-            
-            
-            
-            <p class="sub-title text-shadow"></p>
-            <p class="is-marginless text-shadow post-content-text">
-                libevent库1.make安装从libevent官网下载stable版本的源文件
-
-tar ..
-            </p>
-            <p class="date text-shadow is-marginless">2021-03-18</p>
-        </div>
-    </div>
-</a>
-        
     </div>
 </div>
 
                     
+                    
+                
+                    
+                        <div class="content-box  is-hidden-desktop" style="margin-bottom: 27px;">
+                            <a class="post-hover" href="/2021/04/07/网络I-O中的同步与异步，阻塞与非阻塞/">
+                            <div class="columns" style="min-height: 230px;">
+                                
+                                    <div class="column is-4-desktop is-5-tablet post-avatar is-hidden-mobile"
+                                         style="margin: 10px; background-size: cover;background-image: url('/images/IO_block1.png')">
+                                    </div>
+                                
+                                <div class="column is-8-desktop post-content is-flex align-center">
+                                    <div class="content">
+                                        <h3>网络I/O中的同步与异步，阻塞与非阻塞</h3>
+                                        
+                                        <p>
+                                            
+                                        </p>
+                                        <p>
+                                            
+最近阅读了libevent源码之后，决定对reactor模型进行一个整理，在整理之前需要明白I/O复用的含义，明白I/O复用之前，需要明白基本的I/O模型(unix下)
+
+1.同步异步，阻塞非阻塞
+网上关于同步，异步和阻塞，非阻塞的说法很多，但是我觉得只需要记住以下几点就可以分辨开。主要参考unix网络编程卷1(第三版)的第六章
+
+同步与异步主要说明的..
+                                        </p>
+                                        <p>2021-04-07</p>
+                                        <button class="button is-small">Read More</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                        </div>
                     
                 
                     
@@ -307,7 +340,7 @@ containerd.io : daemon containerd. It works independently on the docker packages
                     
                 
                     
-                        <div class="content-box  is-hidden-desktop" style="margin-bottom: 27px;">
+                        <div class="content-box  " style="margin-bottom: 27px;">
                             <a class="post-hover" href="/2021/03/18/libevent库/">
                             <div class="columns" style="min-height: 230px;">
                                 

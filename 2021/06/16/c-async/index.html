@@ -15,15 +15,23 @@
   </script>
 
   
-  <title>Archives | Mervyen</title>
+  <title>c++_async() | Mervyen</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Mervyen">
-<meta property="og:url" content="http://yoursite.com/archives/page/3/index.html">
+  <meta name="description" content="1.wait_for或wait_unitil 此小节更详细的解释可在《Effective Modern c++》第七章查看  在使用这两个函数，且将判断放入while() 时需要注意将任务返回std::future_status::deferred情况考虑进去，否则可能导致判断处无限循环。 ps:如果使用async()不指定std::launch::deferred或者std::launch::a">
+<meta property="og:type" content="article">
+<meta property="og:title" content="c++_async()">
+<meta property="og:url" content="http://yoursite.com/2021/06/16/c-async/index.html">
 <meta property="og:site_name" content="Mervyen">
+<meta property="og:description" content="1.wait_for或wait_unitil 此小节更详细的解释可在《Effective Modern c++》第七章查看  在使用这两个函数，且将判断放入while() 时需要注意将任务返回std::future_status::deferred情况考虑进去，否则可能导致判断处无限循环。 ps:如果使用async()不指定std::launch::deferred或者std::launch::a">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://yoursite.com/images/async_destructor.png">
+<meta property="og:image" content="http://yoursite.com/images/async_destructor2.png">
+<meta property="article:published_time" content="2021-06-16T03:25:31.000Z">
+<meta property="article:modified_time" content="2021-06-16T03:35:16.182Z">
 <meta property="article:author" content="Mervyen">
+<meta property="article:tag" content="c++">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/images/async_destructor.png">
   
     <link rel="alternate" href="/atom.xml" title="Mervyen" type="application/atom+xml">
   
@@ -101,456 +109,189 @@
 
   <div id="main-wrap" class="position-relative" style="margin-top: 55px;">
       <div class="main-inner-content">
-          <style>
-    .post-hover:hover {
-        box-shadow: inset 0 0 100px #000;
-        transition: box-shadow .2s;
-    }
+          <!--博文页面-->
 
-    .sub-post-container .post-hover:hover h3 {
-        text-decoration: underline gray;
-    }
-
-
-    .primary-item-main {
-        height: 330px;
+<style>
+    .header-box {
+        height: 370px;
+        filter: blur(10px);
         background-size: cover;
+        background-color: lightsteelblue;
     }
 
-    .primary-container .title,
-    .primary-container .sub-title,
-    .primary-container .post-content-text,
-    .primary-container .date {
-        color: #fff;
+    .post-box {
+        padding: 15px;
+        padding-top: 60px;
+        min-height: 80vh;
+        margin-top: -200px;
+        border-radius: 4px;
+        background-color: rgba(255,255,255,.8);
     }
 
-    .post-content-text {
-        color: #f1f1f1!important;
+    .post-avatar {
+        height: 30px;
+        width: 30px;
+        border-radius: 50%;
     }
 
-    .primary-container .post-hover {
-        background: black;
+    .flow-chart {
+        text-align: center;
     }
 
-    .content-bg-mask {
-        background: rgba(0,0,0,.4);
+    img[alt="post-cover"] {
+        display: none;
     }
-
 </style>
-
-<div style="background: #f5f8f9;">
-    <div id="main-container" class="container" style="padding-top: 20px;">
-        <div class="is-flex main-content justify-center">
-            <section class="column is-9">
-                
-<div class="primary-container content-box is-flex-desktop clear-padding bottom-line" style="margin-bottom: 25px;">
-    <div class="column  is-7-desktop">
-        <a href="/2020/08/07/static和extern关键字/">
-            <div class="full-height post-hover"
-                 style="
-                         background-image: url('');
-                         height: 350px;
-                         background-size: cover;
-                         background-repeat: no-repeat;
-                         ">
-                    <div class=" is-flex flex-column center content has-text-centered full-height has-padding content-bg-mask">
-                        <h1 class="title text-shadow" style="margin-bottom: 15px;">
-                            static和extern关键字
-                        </h1>
-                        <div>
-                        
-                            `
-                                <span class="tag is-post-tag">C++</span>
-                            
-                        
-                        </div>
-                        <p class="post-content-text is-marginless has-padding text-shadow">
-                            对于static关键字的用途主要可以按照以下两个方面 
-
-作用域生存期
-
-1.静态局部变量
-①.static修饰的局部变量会在全局数据区分配内存（局部变量会分配在栈区，随着函数的结束而消亡）。所以static修饰的变量更适用于递归函数。..
-                        </p>
-                        <p class="date text-shadow">2020-08-07</p>
-                        <button class="button is-info is-small">Read More</button>
-                    </div>
+<header>
+    <div id="header_box" class="header-box"></div>
+</header>
+<section>
+    <div class="container post-box">
+        <div class="content post-title is-flex center flex-column" style="margin-bottom: 70px; overflow: auto;">
+            <h1 class="has-text-centered" style="padding-bottom: 10px; border-bottom: 3px solid #fff">
+                <strong>c++_async()</strong>
+            </h1>
+            
+            <div class="is-flex align-center">
+                <img class="post-avatar" src="https://cdn2.iconfinder.com/data/icons/rcons-user/32/male-shadow-circle-512.png">
+                <span style="padding:0 10px;"> <span class="sub-title">By</span> Mervyen</span>
+                <span class="post-date sub-title">at: 2021-06-16</span>
             </div>
-        </a>
-    </div>
-    <div class="column is-5 is-hidden-touch" style="padding-left: 0;">
-        <div class="full-height is-flex flex-column justify-space-between" style="min-height: 350px;">
             
-                
-<a class="post-hover" href="/2020/07/24/leetcode-T64/" style="height: 48.5%">
-    <div class="content is-hidden-touch full-height overflow-hidden" style="background-image: url('')">
-        <div class="content-bg-mask full-width full-height has-padding">
-            <h3 class="title is-marginless text-shadow">
-                leetcode-T64
-            </h3>
-            
-            
-            <span class="tag is-post-tag">leetcode</span>
-            
-            
-            <p class="sub-title text-shadow"></p>
-            <p class="is-marginless text-shadow post-content-text">
-                T64 最短路径
-给定一个包含非负整数的 m x n 网格，请找出一条从左上角到右下角的路径，使..
-            </p>
-            <p class="date text-shadow is-marginless">2020-07-24</p>
-        </div>
-    </div>
-</a>
-            
-            
-                
-<a class="post-hover" href="/2020/07/21/QT串口随机切分帧问题/" style="height: 48.5%">
-    <div class="content is-hidden-touch full-height overflow-hidden" style="background-image: url('')">
-        <div class="content-bg-mask full-width full-height has-padding">
-            <h3 class="title is-marginless text-shadow">
-                QT串口随机切分帧问题
-            </h3>
-            
-            
-            
-            <p class="sub-title text-shadow"></p>
-            <p class="is-marginless text-shadow post-content-text">
-                QT串口随机切分帧问题在QT调试串口中，发现串口接收帧的时候并不是一次读完一整个数据帧。而是会给..
-            </p>
-            <p class="date text-shadow is-marginless">2020-07-21</p>
-        </div>
-    </div>
-</a>
+                <div>
+                    
+                         <a class="tag is-post-tag" href="/tags/c/">c++</a>
+                    
+                </div>
             
         </div>
-    </div>
-    <div class="column is-12 is-hidden-desktop">
-        
-        
-<a class="post-hover" href="/2020/07/24/leetcode-T64/" style="height: 48.5%">
-    <div class="content is-hidden-touch full-height overflow-hidden" style="background-image: url('')">
-        <div class="content-bg-mask full-width full-height has-padding">
-            <h3 class="title is-marginless text-shadow">
-                leetcode-T64
-            </h3>
-            
-            
-            <span class="tag is-post-tag">leetcode</span>
-            
-            
-            <p class="sub-title text-shadow"></p>
-            <p class="is-marginless text-shadow post-content-text">
-                T64 最短路径
-给定一个包含非负整数的 m x n 网格，请找出一条从左上角到右下角的路径，使..
-            </p>
-            <p class="date text-shadow is-marginless">2020-07-24</p>
+        <div class="content" style="overflow: auto">
+            <h2 id="1-wait-for或wait-unitil"><a href="#1-wait-for或wait-unitil" class="headerlink" title="1.wait_for或wait_unitil"></a>1.wait_for或wait_unitil</h2><blockquote>
+<p>此小节更详细的解释可在《Effective Modern c++》第七章查看</p>
+</blockquote>
+<p>在使用这两个函数，且将判断放入<code>while()</code> 时需要注意将任务返回<code>std::future_status::deferred</code>情况考虑进去，否则可能导致判断处无限循环。</p>
+<p>ps:如果使用<code>async()</code>不指定<code>std::launch::deferred</code>或者<code>std::launch::async</code>，则底层会自动决定到底怎么去调用，对于程序员来说是透明的。(所有对于不指定<code>policy</code>的<code>async()</code>要小心<code>thread_local</code>变量的使用)</p>
+<p><strong>所以在下面的程序内直接指定<code>std::future_status::deferred</code>，模拟系统负载达到极限时，采用<code>deferred</code>调用的情况</strong></p>
+<pre><code class="lang-c++">#include &lt;iostream&gt;
+#include &lt;future&gt;
+#include &lt;thread&gt;
+#include &lt;memory&gt;
+
+int main() {
+    std::atomic&lt;int&gt; count;
+    std::cout&lt;&lt;&quot;mainThread:&quot;&lt;&lt;std::this_thread::get_id()&lt;&lt;&quot;\n&quot;;
+    auto a1 = std::async(std::launch::deferred,[&amp;count](int a){
+        std::cout&lt;&lt;&quot;thread ID&quot;&lt;&lt;a&lt;&lt;&quot;--&quot;&lt;&lt;std::this_thread::get_id()&lt;&lt;&quot;\n&quot;;
+        count.fetch_add(1);
+    },1);
+while(a1.wait_for(std::chrono::milliseconds(10000))!=std::future_status::ready){
+        std::cout&lt;&lt;&quot;count&quot;&lt;&lt;count&lt;&lt;&quot;\n&quot;;
+    }
+    return 0;
+}
+</code></pre>
+<p>在运行上面的代码之后，程序会直接陷入无限死循环。测试时，如果系统负载没有达到极限，根本不可能测试出这种BUG。要改善此情况只需要在<code>while()</code>前加入<code>wait_for(0s)</code>判断即可</p>
+<pre><code class="lang-c++">#include &lt;iostream&gt;
+#include &lt;future&gt;
+#include &lt;thread&gt;
+#include &lt;memory&gt;
+
+int main() {
+    std::atomic&lt;int&gt; count;
+    std::cout&lt;&lt;&quot;mainThread:&quot;&lt;&lt;std::this_thread::get_id()&lt;&lt;&quot;\n&quot;;
+    auto a1 = std::async(std::launch::deferred,[&amp;count](int a){
+        std::cout&lt;&lt;&quot;thread ID&quot;&lt;&lt;a&lt;&lt;&quot;--&quot;&lt;&lt;std::this_thread::get_id()&lt;&lt;&quot;\n&quot;;
+        count.fetch_add(1);
+    },1);
+    if(a1.wait_for(std::chrono::milliseconds(0))==std::future_status::deferred){//判断是否deferred
+        a1.get();//如果已经deferred，直接调用。
+    }
+    else {
+        while (a1.wait_for(std::chrono::milliseconds(10000)) != std::future_status::ready) {
+            std::cout &lt;&lt; &quot;count&quot; &lt;&lt; count &lt;&lt; &quot;\n&quot;;
+            std::chrono::milliseconds(10000);
+        }
+    }
+    std::cout&lt;&lt;&quot;done!&quot;&lt;&lt;&quot;  count = &quot;&lt;&lt;count&lt;&lt;&quot;\n&quot;;
+    return 0;
+}
+</code></pre>
+<h2 id="2-async-析构"><a href="#2-async-析构" class="headerlink" title="2.async()析构"></a>2.async()析构</h2><p><code>async()</code>的语句会返回一个<code>future</code>类。如果没有声明一个<code>future</code>类去接收<code>async()</code>的返回值。那么最坑的地方来了，可以看如下的代码执行结果。</p>
+<pre><code class="lang-c++">#include &lt;iostream&gt;
+#include &lt;future&gt;
+#include &lt;thread&gt;
+
+int main() {
+    std::cout&lt;&lt;&quot;mainThread:&quot;&lt;&lt;std::this_thread::get_id()&lt;&lt;&quot;\n&quot;;
+//
+    std::async(std::launch::async,[](int a){
+        std::cout&lt;&lt;&quot;thread ID&quot;&lt;&lt;a&lt;&lt;&quot;--&quot;&lt;&lt;std::this_thread::get_id()&lt;&lt;&quot;\n&quot;;
+    },1);
+    std::async(std::launch::async,[](int a){
+        std::cout&lt;&lt;&quot;thread ID&quot;&lt;&lt;a&lt;&lt;&quot;--&quot;&lt;&lt;std::this_thread::get_id()&lt;&lt;&quot;\n&quot;;
+    },2);
+    std::async(std::launch::async,[](int a){
+        std::cout&lt;&lt;&quot;thread ID&quot;&lt;&lt;a&lt;&lt;&quot;--&quot;&lt;&lt;std::this_thread::get_id()&lt;&lt;&quot;\n&quot;;
+    },3);
+    std::async(std::launch::async,[](int a){
+        std::cout&lt;&lt;&quot;thread ID&quot;&lt;&lt;a&lt;&lt;&quot;--&quot;&lt;&lt;std::this_thread::get_id()&lt;&lt;&quot;\n&quot;;
+    },4);
+    return 0;
+}
+</code></pre>
+<p><img src="/images/async_destructor.png" alt=""></p>
+<p>从图中可以看到，<code>thread1</code>确实开辟了新的线程，但是后面的2，3，4线程并没有再开辟新的线程去异步执行。</p>
+<p>这是因为<strong><code>std::async()</code>的析构是阻塞的，且<code>async()</code>会接着使用上一次开辟的线程。</strong>在写这份代码时，我希望这4个任务能够以异步的方式，并发执行。但实际上这份代码完成的是，在另一个线程内，串行的执行这4个任务。</p>
+<p><a href="https://en.cppreference.com/w/cpp/thread/async" target="_blank" rel="noopener">更详细的解释如下</a>:</p>
+<blockquote>
+<p>If the std::future obtained from  std::async is not moved from or bound to a reference, the destructor of the <a href="https://link.zhihu.com/?target=http%3A//en.cppreference.com/w/cpp/thread/future">std::future</a> will block at the end of the full expression until the asynchronous  operation completes, essentially making code such as the following  synchronous:</p>
+<pre><code class="lang-text">std::async(std::launch::async, []{ f(); }); // temporary&#39;s dtor waits for f()
+std::async(std::launch::async, []{ g(); }); // does not start until f() completes
+</code></pre>
+<p>(note that the destructors of std::futures obtained by means other than a call to std::async never block) </p>
+</blockquote>
+<p>所以当我们想以<code>std::launch::async</code>启动时，请一定声明一个<code>future</code>来延长<code>async()</code>的生命周期。防止<code>async()</code>在析构时阻塞线程，导致程序串行的运行。</p>
+<p>修改后的代码如下所示</p>
+<pre><code class="lang-c++">    auto a1 =std::async(std::launch::async,[](int a){
+        std::cout&lt;&lt;&quot;thread ID&quot;&lt;&lt;a&lt;&lt;&quot;--&quot;&lt;&lt;std::this_thread::get_id()&lt;&lt;&quot;\n&quot;;
+    },1);
+    auto a2 = std::async(std::launch::async,[](int a){
+        std::cout&lt;&lt;&quot;threrad ID&quot;&lt;&lt;a&lt;&lt;&quot;--&quot;&lt;&lt;std::this_thread::get_id()&lt;&lt;&quot;\n&quot;;
+    },2);
+    auto a3 = std::async(std::launch::async,[](int a){
+        std::cout&lt;&lt;&quot;thread ID&quot;&lt;&lt;a&lt;&lt;&quot;--&quot;&lt;&lt;std::this_thread::get_id()&lt;&lt;&quot;\n&quot;;
+    },3);
+    auto a4 = std::async(std::launch::async,[](int a){
+        std::cout&lt;&lt;&quot;thread ID&quot;&lt;&lt;a&lt;&lt;&quot;--&quot;&lt;&lt;std::this_thread::get_id()&lt;&lt;&quot;\n&quot;;
+    },4);
+</code></pre>
+<p><img src="/images/async_destructor2.png" alt=""></p>
+
         </div>
-    </div>
-</a>
-        
-        
-        
-<a class="post-hover" href="/2020/07/21/QT串口随机切分帧问题/" style="height: 48.5%">
-    <div class="content is-hidden-touch full-height overflow-hidden" style="background-image: url('')">
-        <div class="content-bg-mask full-width full-height has-padding">
-            <h3 class="title is-marginless text-shadow">
-                QT串口随机切分帧问题
-            </h3>
+        <div class="post-reply">
             
-            
-            
-            <p class="sub-title text-shadow"></p>
-            <p class="is-marginless text-shadow post-content-text">
-                QT串口随机切分帧问题在QT调试串口中，发现串口接收帧的时候并不是一次读完一整个数据帧。而是会给..
-            </p>
-            <p class="date text-shadow is-marginless">2020-07-21</p>
-        </div>
-    </div>
-</a>
-        
-    </div>
-</div>
-
-                    
-                    
-                
-                    
-                        <div class="content-box  is-hidden-desktop" style="margin-bottom: 27px;">
-                            <a class="post-hover" href="/2020/07/24/leetcode-T64/">
-                            <div class="columns" style="min-height: 230px;">
-                                
-                                <div class="column is-8-desktop post-content is-flex align-center">
-                                    <div class="content">
-                                        <h3>leetcode-T64</h3>
-                                        
-                                        <p>
-                                            
-                                                <span class="tag is-post-tag">leetcode</span>
-                                            
-                                        </p>
-                                        <p>
-                                            T64 最短路径
-给定一个包含非负整数的 m x n 网格，请找出一条从左上角到右下角的路径，使得路径上的数字总和为最小。
-说明：每次只能向下或者向右移动一步。示例
-
-输入:[  [1,3,1],  [1,5,1],  [4,2,1]]输出: 7解释: 因为路径 1→3→1→1→1 的总和最小。
-
-结题思路1.当看到当前路径会依赖上一个结果，应该是联想到..
-                                        </p>
-                                        <p>2020-07-24</p>
-                                        <button class="button is-small">Read More</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                        </div>
-                    
-                
-                    
-                        <div class="content-box  is-hidden-desktop" style="margin-bottom: 27px;">
-                            <a class="post-hover" href="/2020/07/21/QT串口随机切分帧问题/">
-                            <div class="columns" style="min-height: 230px;">
-                                
-                                <div class="column is-8-desktop post-content is-flex align-center">
-                                    <div class="content">
-                                        <h3>QT串口随机切分帧问题</h3>
-                                        
-                                        <p>
-                                            
-                                        </p>
-                                        <p>
-                                            QT串口随机切分帧问题在QT调试串口中，发现串口接收帧的时候并不是一次读完一整个数据帧。而是会给数据帧做随机切分，需要设置一个buffer来不断存取数据帧来装入最后的m_res中。
-假设同时传输数据帧A,数据帧B。帧头标识FRAMESTART帧尾标识END。
-数据帧A
-
-FRAMESTARTadasdweqweqwewqewqeqweENDadasdwe..
-                                        </p>
-                                        <p>2020-07-21</p>
-                                        <button class="button is-small">Read More</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                        </div>
-                    
-                
-                    
-                        <div class="content-box  " style="margin-bottom: 27px;">
-                            <a class="post-hover" href="/2020/07/19/VScode编译socket时链接库问题/">
-                            <div class="columns" style="min-height: 230px;">
-                                
-                                <div class="column is-8-desktop post-content is-flex align-center">
-                                    <div class="content">
-                                        <h3>VScode编译socket时链接库问题</h3>
-                                        
-                                        <p>
-                                            
-                                        </p>
-                                        <p>
-                                            VScode编译socket时链接库问题
-最近换了vscode做Udp，在VS下运行没问题的代码放到了VScode环境下就报错
-
-vscode terminal with exit code1
-
-在网上查了不少资料可算找到了，应该就是g++编译时链接库的问题。在VS下面只需要写如下代码就可以正常编译了。
-#include&lt;Winsock2.h&gt..
-                                        </p>
-                                        <p>2020-07-19</p>
-                                        <button class="button is-small">Read More</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                        </div>
-                    
-                
-                    
-                        <div class="content-box  " style="margin-bottom: 27px;">
-                            <a class="post-hover" href="/2020/07/17/Hexo部署报错FATAL-can-not-read-a-block-mapping-entry/">
-                            <div class="columns" style="min-height: 230px;">
-                                
-                                <div class="column is-8-desktop post-content is-flex align-center">
-                                    <div class="content">
-                                        <h3>Hexo部署报错FATAL can not read a block mapping entry</h3>
-                                        
-                                        <p>
-                                            
-                                        </p>
-                                        <p>
-                                            YAMLException: cannot read a block mapping entry; a multi line key may not be an implicit key at line 5, column 1:
-很久没有写hexo了，今天更新的时候突然发现部署新文章的时候出错了。出现了如下所示的错误
-
-YAMLException: ca..
-                                        </p>
-                                        <p>2020-07-17</p>
-                                        <button class="button is-small">Read More</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                        </div>
-                    
-                
-                    
-                        <div class="content-box  " style="margin-bottom: 27px;">
-                            <a class="post-hover" href="/2020/07/17/git空白文件上传问题/">
-                            <div class="columns" style="min-height: 230px;">
-                                
-                                <div class="column is-8-desktop post-content is-flex align-center">
-                                    <div class="content">
-                                        <h3>git空白文件上传问题</h3>
-                                        
-                                        <p>
-                                            
-                                                <span class="tag is-post-tag">git</span>
-                                            
-                                        </p>
-                                        <p>
-                                            git添加本地新文件夹
-git命令不可以添加空白文件夹，文件里面必须有文件才可以使用
-假设新建一个文件夹CODE，想用git提交
-mkdir code
-git add code//这句话会报错“fatal: pathspec &#39;code&#39; did not match any files.”
-//这是因为code是一个空的文件夹
-
-正确的想..
-                                        </p>
-                                        <p>2020-07-17</p>
-                                        <button class="button is-small">Read More</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                        </div>
-                    
-                
-                    
-                        <div class="content-box  " style="margin-bottom: 27px;">
-                            <a class="post-hover" href="/2020/06/12/ZSH导致command-not-found/">
-                            <div class="columns" style="min-height: 230px;">
-                                
-                                <div class="column is-8-desktop post-content is-flex align-center">
-                                    <div class="content">
-                                        <h3>ZSH导致command not found</h3>
-                                        
-                                        <p>
-                                            
-                                        </p>
-                                        <p>
-                                            ZSH导致command not found问题
-这几天折腾了下ohmyzsh来美化下终端，然后今天突然想写一篇文稿，突然发现！！！
-
-1.hexo命令没了2.node命令没了3.nvm命令没了但是我切回bash，这些命令就又都回来了！
-
-在网上找了不久之后知道了应该是路径的问题，是~/.zshrc里的环境变量没配置好。然后开始找，HEXO到底是怎么配进..
-                                        </p>
-                                        <p>2020-06-12</p>
-                                        <button class="button is-small">Read More</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                        </div>
-                    
-                
-                    
-                        <div class="content-box  " style="margin-bottom: 27px;">
-                            <a class="post-hover" href="/2020/06/12/for和while死循环/">
-                            <div class="columns" style="min-height: 230px;">
-                                
-                                <div class="column is-8-desktop post-content is-flex align-center">
-                                    <div class="content">
-                                        <h3>for和while死循环</h3>
-                                        
-                                        <p>
-                                            
-                                        </p>
-                                        <p>
-                                            for和while死循环
-这两种从其最终目的来说都是实现死循环
-
-1.for（；；）循环是C语言作者推荐的标准方法，同时还是C++作者推荐的标准方法。省略了循环条件，表示无条件循环。2.while(1)会进行一个条件判断。而且while(1)在某些编译器下会发生警告，认为输入恒真表达式而给警告
-
-根据网上的编译结果
-
-1、while( 1 );00401..
-                                        </p>
-                                        <p>2020-06-12</p>
-                                        <button class="button is-small">Read More</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                        </div>
-                    
-                
-                    
-                        <div class="content-box  " style="margin-bottom: 27px;">
-                            <a class="post-hover" href="/2020/06/09/算法整理/">
-                            <div class="columns" style="min-height: 230px;">
-                                
-                                <div class="column is-8-desktop post-content is-flex align-center">
-                                    <div class="content">
-                                        <h3>算法整理</h3>
-                                        
-                                        <p>
-                                            
-                                        </p>
-                                        <p>
-                                            数学常用公式
-1、最大公约数和最小公倍数求（A,B）最大公约数
-
-最大公约数用辗转相除∵319÷377=0（余319）∴（319，377）=（377，319）；∵ 377÷319=1（余58）∴（377，319）=（319，58）；∵ 319÷58=5（余29）∴ （319，58）=（58，29）；∵ 58÷29=2（余0）∴ （58，29）= 29；∴..
-                                        </p>
-                                        <p>2020-06-09</p>
-                                        <button class="button is-small">Read More</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                        </div>
-                    
-                
-                    
-                        <div class="content-box  " style="margin-bottom: 27px;">
-                            <a class="post-hover" href="/2020/06/08/leetcode-T210/">
-                            <div class="columns" style="min-height: 230px;">
-                                
-                                <div class="column is-8-desktop post-content is-flex align-center">
-                                    <div class="content">
-                                        <h3>leetcode-T210</h3>
-                                        
-                                        <p>
-                                            
-                                                <span class="tag is-post-tag">leetcode</span>
-                                            
-                                        </p>
-                                        <p>
-                                            T210 课程表II
-现在你总共有 n 门课需要选，记为 0 到 n-1。
-在选修某些课程之前需要一些先修课程。 例如，想要学习课程 0 ，你需要先完成课程 1 ，我们用一个匹配来表示他们: [0,1]
-给定课程总量以及它们的先决条件，返回你为了学完所有课程所安排的学习顺序。
-可能会有多个正确的顺序，你只要返回一种就可以了。如果不可能完成所有课程，返回一..
-                                        </p>
-                                        <p>2020-06-08</p>
-                                        <button class="button is-small">Read More</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                        </div>
-                    
-                
-                <!--翻頁-->
-                <nav class="pagination is-flex" style="justify-content: flex-end">
-                    
-                </nav>
-            </section>
             
         </div>
     </div>
-</div>
+</section>
+<script>
+    // 获取第一张图, 用以当封面背景图
+    var img = document.querySelectorAll('img')[1]
+
+    if (img) {
+        var header_box = document.querySelector('#header_box')
+        header_box.style.backgroundImage = 'url('+ img.src +')'
+    }
+</script>
+
+<!-- for code block highlight --> 
+<!-- theme.block_highlight -->
+<!-- we do not guarantee the char sequences spell right, usr himself do it -->
+
+<link rel="stylesheet" href="/css/highlight_rainbow.css">
+
+<script src="/js/highlight.min.js"></script>
+<script type="text/javascript"> hljs.initHighlightingOnLoad();</script>
 
       </div>
   </div>
