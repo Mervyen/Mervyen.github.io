@@ -15,15 +15,24 @@
   </script>
 
   
-  <title>Archives | Mervyen</title>
+  <title>mac下的clion配置OpenSSL  | Mervyen</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Mervyen">
-<meta property="og:url" content="http://yoursite.com/archives/page/2/index.html">
+  <meta name="description" content="在编译开源库workflow时，里面使用了OpenSSL库，但是mac默认的库是LibreSSL导致编译失败。所以记录一下安装后在clion中的配置 1.brew 安装openssl先使用brew搜索一下openssl在mac下名字  brew search openssl   可以看到openssl@1.1，我们直接安装这个OpenSSL即可  brew install openssl@1.1">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mac下的clion配置OpenSSL ">
+<meta property="og:url" content="http://yoursite.com/2021/08/13/mac%E4%B8%8B%E7%9A%84clion%E9%85%8D%E7%BD%AEOpenSSL/index.html">
 <meta property="og:site_name" content="Mervyen">
+<meta property="og:description" content="在编译开源库workflow时，里面使用了OpenSSL库，但是mac默认的库是LibreSSL导致编译失败。所以记录一下安装后在clion中的配置 1.brew 安装openssl先使用brew搜索一下openssl在mac下名字  brew search openssl   可以看到openssl@1.1，我们直接安装这个OpenSSL即可  brew install openssl@1.1">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://yoursite.com/images/mac_install_OpenSSL1.png">
+<meta property="og:image" content="http://yoursite.com/images/mac_install_OpenSSL2.png">
+<meta property="og:image" content="http://yoursite.com/images/mac_install_OpenSSL3.png">
+<meta property="og:image" content="http://yoursite.com/images/mac_install_OpenSSL4.png">
+<meta property="article:published_time" content="2021-08-13T15:42:32.000Z">
+<meta property="article:modified_time" content="2021-08-13T15:45:20.873Z">
 <meta property="article:author" content="Mervyen">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/images/mac_install_OpenSSL1.png">
   
     <link rel="alternate" href="/atom.xml" title="Mervyen" type="application/atom+xml">
   
@@ -101,470 +110,126 @@
 
   <div id="main-wrap" class="position-relative" style="margin-top: 55px;">
       <div class="main-inner-content">
-          <style>
-    .post-hover:hover {
-        box-shadow: inset 0 0 100px #000;
-        transition: box-shadow .2s;
-    }
+          <!--博文页面-->
 
-    .sub-post-container .post-hover:hover h3 {
-        text-decoration: underline gray;
-    }
-
-
-    .primary-item-main {
-        height: 330px;
+<style>
+    .header-box {
+        height: 370px;
+        filter: blur(10px);
         background-size: cover;
+        background-color: lightsteelblue;
     }
 
-    .primary-container .title,
-    .primary-container .sub-title,
-    .primary-container .post-content-text,
-    .primary-container .date {
-        color: #fff;
+    .post-box {
+        padding: 15px;
+        padding-top: 60px;
+        min-height: 80vh;
+        margin-top: -200px;
+        border-radius: 4px;
+        background-color: rgba(255,255,255,.8);
     }
 
-    .post-content-text {
-        color: #f1f1f1!important;
+    .post-avatar {
+        height: 30px;
+        width: 30px;
+        border-radius: 50%;
     }
 
-    .primary-container .post-hover {
-        background: black;
+    .flow-chart {
+        text-align: center;
     }
 
-    .content-bg-mask {
-        background: rgba(0,0,0,.4);
+    img[alt="post-cover"] {
+        display: none;
     }
-
 </style>
-
-<div style="background: #f5f8f9;">
-    <div id="main-container" class="container" style="padding-top: 20px;">
-        <div class="is-flex main-content justify-center">
-            <section class="column is-9">
-                
-<div class="primary-container content-box is-flex-desktop clear-padding bottom-line" style="margin-bottom: 25px;">
-    <div class="column  is-7-desktop">
-        <a href="/2020/12/26/c-重载-重写-重定义/">
-            <div class="full-height post-hover"
-                 style="
-                         background-image: url('');
-                         height: 350px;
-                         background-size: cover;
-                         background-repeat: no-repeat;
-                         ">
-                    <div class=" is-flex flex-column center content has-text-centered full-height has-padding content-bg-mask">
-                        <h1 class="title text-shadow" style="margin-bottom: 15px;">
-                            c++ 重载,重写,重定义
-                        </h1>
-                        <div>
-                        
-                            `
-                                <span class="tag is-post-tag">C++</span>
-                            
-                        
-                        </div>
-                        <p class="post-content-text is-marginless has-padding text-shadow">
-                            c++ 重载,重写,重定义的注意事项
-重写(override)部分有协变返回类型的实战场景详解
-
-1.重载(overLoad)
-重载的关键词是函数的参数列表——函数特征标(function signature)
-
-函数的返回值类型不是特..
-                        </p>
-                        <p class="date text-shadow">2020-12-26</p>
-                        <button class="button is-info is-small">Read More</button>
-                    </div>
+<header>
+    <div id="header_box" class="header-box"></div>
+</header>
+<section>
+    <div class="container post-box">
+        <div class="content post-title is-flex center flex-column" style="margin-bottom: 70px; overflow: auto;">
+            <h1 class="has-text-centered" style="padding-bottom: 10px; border-bottom: 3px solid #fff">
+                <strong>mac下的clion配置OpenSSL </strong>
+            </h1>
+            
+            <div class="is-flex align-center">
+                <img class="post-avatar" src="https://cdn2.iconfinder.com/data/icons/rcons-user/32/male-shadow-circle-512.png">
+                <span style="padding:0 10px;"> <span class="sub-title">By</span> Mervyen</span>
+                <span class="post-date sub-title">at: 2021-08-13</span>
             </div>
-        </a>
-    </div>
-    <div class="column is-5 is-hidden-touch" style="padding-left: 0;">
-        <div class="full-height is-flex flex-column justify-space-between" style="min-height: 350px;">
             
-                
-<a class="post-hover" href="/2020/12/12/TCP的TIME-WAIT和CLOSE-WAIT状态/" style="height: 48.5%">
-    <div class="content is-hidden-touch full-height overflow-hidden" style="background-image: url('/images/TCP‘s--TIME_WAIT-CLOSE_WAIT.png')">
-        <div class="content-bg-mask full-width full-height has-padding">
-            <h3 class="title is-marginless text-shadow">
-                TCP的TIME_WAIT和CLOSE_WAIT状态
-            </h3>
-            
-            
-            
-            <p class="sub-title text-shadow"></p>
-            <p class="is-marginless text-shadow post-content-text">
-                TCP的TIME_WAIT和CLOSE_WAIT状态最近在使用jmeter进行压力测试的时候，老..
-            </p>
-            <p class="date text-shadow is-marginless">2020-12-12</p>
-        </div>
-    </div>
-</a>
-            
-            
-                
-<a class="post-hover" href="/2020/11/18/smart-ptr/" style="height: 48.5%">
-    <div class="content is-hidden-touch full-height overflow-hidden" style="background-image: url('/images/smartPtr_up1.png')">
-        <div class="content-bg-mask full-width full-height has-padding">
-            <h3 class="title is-marginless text-shadow">
-                smart_ptr
-            </h3>
-            
-            
-            <span class="tag is-post-tag">C++</span>
-            
-            
-            <p class="sub-title text-shadow"></p>
-            <p class="is-marginless text-shadow post-content-text">
-                Smart pointers智能指针全部包含在中，在c++11引入只能指针之后，由程序员分配的指..
-            </p>
-            <p class="date text-shadow is-marginless">2020-11-18</p>
-        </div>
-    </div>
-</a>
+                <div>
+                    
+                </div>
             
         </div>
-    </div>
-    <div class="column is-12 is-hidden-desktop">
-        
-        
-<a class="post-hover" href="/2020/12/12/TCP的TIME-WAIT和CLOSE-WAIT状态/" style="height: 48.5%">
-    <div class="content is-hidden-touch full-height overflow-hidden" style="background-image: url('/images/TCP‘s--TIME_WAIT-CLOSE_WAIT.png')">
-        <div class="content-bg-mask full-width full-height has-padding">
-            <h3 class="title is-marginless text-shadow">
-                TCP的TIME_WAIT和CLOSE_WAIT状态
-            </h3>
-            
-            
-            
-            <p class="sub-title text-shadow"></p>
-            <p class="is-marginless text-shadow post-content-text">
-                TCP的TIME_WAIT和CLOSE_WAIT状态最近在使用jmeter进行压力测试的时候，老..
-            </p>
-            <p class="date text-shadow is-marginless">2020-12-12</p>
+        <div class="content" style="overflow: auto">
+            <p>在编译开源库<code>workflow</code>时，里面使用了<code>OpenSSL</code>库，但是mac默认的库是<code>LibreSSL</code>导致编译失败。所以记录一下安装后在clion中的配置</p>
+<h2 id="1-brew-安装openssl"><a href="#1-brew-安装openssl" class="headerlink" title="1.brew 安装openssl"></a>1.brew 安装openssl</h2><p>先使用brew搜索一下openssl在mac下名字</p>
+<blockquote>
+<p>brew search openssl</p>
+</blockquote>
+<p><img src="/images/mac_install_OpenSSL1.png" alt=""></p>
+<p>可以看到<code>openssl@1.1</code>，我们直接安装这个<code>OpenSSL</code>即可</p>
+<blockquote>
+<p>brew install openssl@1.1</p>
+</blockquote>
+<h2 id="2-在环境变量中配置openssl"><a href="#2-在环境变量中配置openssl" class="headerlink" title="2.在环境变量中配置openssl"></a>2.在环境变量中配置openssl</h2><p>在执行完<strong>1.</strong>之后，我们使用</p>
+<blockquote>
+<p> openssl version</p>
+</blockquote>
+<p><img src="/images/mac_install_OpenSSL2.png" alt=""></p>
+<p>得到的结果任然是<code>LibreSSL</code>，这是因为环境变量中并没有将openssl配置进去。</p>
+<h3 id="2-1-查看openssl的路径"><a href="#2-1-查看openssl的路径" class="headerlink" title="2.1 查看openssl的路径"></a>2.1 查看openssl的路径</h3><blockquote>
+<p>brew list openssl</p>
+</blockquote>
+<h3 id="2-2-将openssl的路径配置进环境变量内"><a href="#2-2-将openssl的路径配置进环境变量内" class="headerlink" title="2.2 将openssl的路径配置进环境变量内"></a>2.2 将openssl的路径配置进环境变量内</h3><p>我的terminal使用的是<code>zsh</code>，在根目录下找到<code>.zshrc</code> 。(如果使用的<code>bash</code>，修改<code>.bashrc</code>)</p>
+<blockquote>
+<p>vim .zshrc</p>
+</blockquote>
+<p>按照图片所示将路径写入，路径不一定和我相似，改成<strong>2.1</strong>所标识路径即可。</p>
+<p><img src="/images/mac_install_OpenSSL3.png" alt=""></p>
+<p>配置完成之后使用<code>source .zshrc</code>重载一下配置文件。至此，直接使用terminal可以进行<code>workflow</code>的编译了。</p>
+<h2 id="3-Clion下进行OpenSSL配置-CMake"><a href="#3-Clion下进行OpenSSL配置-CMake" class="headerlink" title="3.Clion下进行OpenSSL配置(CMake)"></a>3.Clion下进行OpenSSL配置(CMake)</h2><h3 id="3-1-CMake配置"><a href="#3-1-CMake配置" class="headerlink" title="3.1 CMake配置"></a>3.1 CMake配置</h3><p>进入clion后点击<code>preferences</code>-&gt;<code>Build,Execution,Deployment</code>-&gt;<code>CMake</code>-&gt;<code>Debug(Release)</code>-&gt;<code>Environment</code>。</p>
+<p>按照图片所示添加<code>user environment variables</code>即可。</p>
+<p><img src="/images/mac_install_OpenSSL4.png" alt=""></p>
+<p>至此，在clion中也可以使用CMake进行编译了。</p>
+<h3 id="3-2-变量说明"><a href="#3-2-变量说明" class="headerlink" title="3.2 变量说明"></a>3.2 变量说明</h3><ul>
+<li><p>CPPFLAG：指定头文件(.h文件)的路径。</p>
+<p> <code>-I</code> 告诉编译器，将 <code>-I</code>后面的路径按第一顺位进行头文件(.h)寻找的目录。</p>
+</li>
+<li><p>LDFLAGE：指定库文件(.a 或 .so)的路径。</p>
+<p><code>-L(大写)</code>告诉编译器，将 <code>-L(大写)</code>后面的路径按第一顺位进行库文件(.a 或 .so)寻找的目录。</p>
+<p><code>-l(小写)</code>告诉编译器库的名称。linux下静态库名的标准为<code>lib[the_lib_name].a</code>，在使用时直接去掉lib前缀和.a后缀即可。</p>
+</li>
+</ul>
+
         </div>
-    </div>
-</a>
-        
-        
-        
-<a class="post-hover" href="/2020/11/18/smart-ptr/" style="height: 48.5%">
-    <div class="content is-hidden-touch full-height overflow-hidden" style="background-image: url('/images/smartPtr_up1.png')">
-        <div class="content-bg-mask full-width full-height has-padding">
-            <h3 class="title is-marginless text-shadow">
-                smart_ptr
-            </h3>
+        <div class="post-reply">
             
-            
-            <span class="tag is-post-tag">C++</span>
-            
-            
-            <p class="sub-title text-shadow"></p>
-            <p class="is-marginless text-shadow post-content-text">
-                Smart pointers智能指针全部包含在中，在c++11引入只能指针之后，由程序员分配的指..
-            </p>
-            <p class="date text-shadow is-marginless">2020-11-18</p>
-        </div>
-    </div>
-</a>
-        
-    </div>
-</div>
-
-                    
-                    
-                
-                    
-                        <div class="content-box  is-hidden-desktop" style="margin-bottom: 27px;">
-                            <a class="post-hover" href="/2020/12/12/TCP的TIME-WAIT和CLOSE-WAIT状态/">
-                            <div class="columns" style="min-height: 230px;">
-                                
-                                    <div class="column is-4-desktop is-5-tablet post-avatar is-hidden-mobile"
-                                         style="margin: 10px; background-size: cover;background-image: url('/images/TCP‘s--TIME_WAIT-CLOSE_WAIT.png')">
-                                    </div>
-                                
-                                <div class="column is-8-desktop post-content is-flex align-center">
-                                    <div class="content">
-                                        <h3>TCP的TIME_WAIT和CLOSE_WAIT状态</h3>
-                                        
-                                        <p>
-                                            
-                                        </p>
-                                        <p>
-                                            TCP的TIME_WAIT和CLOSE_WAIT状态最近在使用jmeter进行压力测试的时候，老是会出现java.net.BindException: Address already in use: connect错误。
-1.userport1.1出现原因在网上查询了一下发现是因为windows系统环境下默认分配的端口数量有限制。在微软的官网可以看到如下..
-                                        </p>
-                                        <p>2020-12-12</p>
-                                        <button class="button is-small">Read More</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                        </div>
-                    
-                
-                    
-                        <div class="content-box  is-hidden-desktop" style="margin-bottom: 27px;">
-                            <a class="post-hover" href="/2020/11/18/smart-ptr/">
-                            <div class="columns" style="min-height: 230px;">
-                                
-                                    <div class="column is-4-desktop is-5-tablet post-avatar is-hidden-mobile"
-                                         style="margin: 10px; background-size: cover;background-image: url('/images/smartPtr_up1.png')">
-                                    </div>
-                                
-                                <div class="column is-8-desktop post-content is-flex align-center">
-                                    <div class="content">
-                                        <h3>smart_ptr</h3>
-                                        
-                                        <p>
-                                            
-                                                <span class="tag is-post-tag">C++</span>
-                                            
-                                        </p>
-                                        <p>
-                                            Smart pointers智能指针全部包含在中，在c++11引入只能指针之后，由程序员分配的指针内存块就不需要程序员再去释放了，智能指针会在结束其生存的时候自动释放这块内存块。虽然指针会释放分配的内存块，但是要注意该内存块不可以被重复释放，否则程序会报错。
-智能指针主要有以下三种，auto_ptr在c++17中移除。
-1.unique_ptr
-std:..
-                                        </p>
-                                        <p>2020-11-18</p>
-                                        <button class="button is-small">Read More</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                        </div>
-                    
-                
-                    
-                        <div class="content-box  " style="margin-bottom: 27px;">
-                            <a class="post-hover" href="/2020/10/29/lambda-expressions/">
-                            <div class="columns" style="min-height: 230px;">
-                                
-                                <div class="column is-8-desktop post-content is-flex align-center">
-                                    <div class="content">
-                                        <h3>lambda-expressions</h3>
-                                        
-                                        <p>
-                                            
-                                                <span class="tag is-post-tag">C++</span>
-                                            
-                                        </p>
-                                        <p>
-                                            Lambda expressions也就是匿名函数，是c++11新加入的特性。
-一、语法格式其语法格式如下所示
-
-[ captures ] &lt;tparams&gt;(optionalC++20)( params ) specifiers exception attr -&gt; ret requires(optional)(C++20) { bod..
-                                        </p>
-                                        <p>2020-10-29</p>
-                                        <button class="button is-small">Read More</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                        </div>
-                    
-                
-                    
-                        <div class="content-box  " style="margin-bottom: 27px;">
-                            <a class="post-hover" href="/2020/09/29/CppCon-2019：Back-to-Basics-Move-Semantics/">
-                            <div class="columns" style="min-height: 230px;">
-                                
-                                    <div class="column is-4-desktop is-5-tablet post-avatar is-hidden-mobile"
-                                         style="margin: 10px; background-size: cover;background-image: url('/images/lvaule-rvalue.png')">
-                                    </div>
-                                
-                                <div class="column is-8-desktop post-content is-flex align-center">
-                                    <div class="content">
-                                        <h3>CppCon 2019：Back to Basics: Move Semantics</h3>
-                                        
-                                        <p>
-                                            
-                                                <span class="tag is-post-tag">C++</span>
-                                            
-                                        </p>
-                                        <p>
-                                            粗略记录，等最近跑完所有测试代码更新此文章。
-一、左右值问题    c++的值类型一共分为5种，5种值的包含关系如上图所示。(参考cppreference：Value categories）。其中xvalue是move所产生的。    rvalue和lvalue的判别方式不能光看其在‘=’左还是右。最主要的就是看当前值是否拥有name，这个name其实也..
-                                        </p>
-                                        <p>2020-09-29</p>
-                                        <button class="button is-small">Read More</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                        </div>
-                    
-                
-                    
-                        <div class="content-box  " style="margin-bottom: 27px;">
-                            <a class="post-hover" href="/2020/09/13/linux终端代理/">
-                            <div class="columns" style="min-height: 230px;">
-                                
-                                    <div class="column is-4-desktop is-5-tablet post-avatar is-hidden-mobile"
-                                         style="margin: 10px; background-size: cover;background-image: url('/images/export2.png')">
-                                    </div>
-                                
-                                <div class="column is-8-desktop post-content is-flex align-center">
-                                    <div class="content">
-                                        <h3>linux终端代理</h3>
-                                        
-                                        <p>
-                                            
-                                                <span class="tag is-post-tag">linux</span>
-                                            
-                                        </p>
-                                        <p>
-                                            在linux终端时，难免有些wget或则curl命令会需要访问某些外源。所以需要一定的设置，使当前的终端通过代理。方法一和方法二均属于全局有效，方法三属于特定命令有效。
-方法一（当前终端有效）
-此方法只会在当前终端生效，重启终端失效。但是墙裂推荐！
-
-1.已知本地是socks5监听局域网(最方便)
-export ALL_PROXY=socks5://lo..
-                                        </p>
-                                        <p>2020-09-13</p>
-                                        <button class="button is-small">Read More</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                        </div>
-                    
-                
-                    
-                        <div class="content-box  " style="margin-bottom: 27px;">
-                            <a class="post-hover" href="/2020/08/30/map-erase-调用delete释放内存分配，导致重载delete死锁/">
-                            <div class="columns" style="min-height: 230px;">
-                                
-                                    <div class="column is-4-desktop is-5-tablet post-avatar is-hidden-mobile"
-                                         style="margin: 10px; background-size: cover;background-image: url('/images/erase_call1.png')">
-                                    </div>
-                                
-                                <div class="column is-8-desktop post-content is-flex align-center">
-                                    <div class="content">
-                                        <h3>map.erase()调用delete释放内存分配，导致重载delete死锁</h3>
-                                        
-                                        <p>
-                                            
-                                        </p>
-                                        <p>
-                                            1.项目功能简述最近在写一个内存泄露的检测代码。
-
-
-重载了void operator delete和void* operator new
-构建了一个全局map用来存void* operator new操作时“所分配的指针(key)和new所在的文件名(value)与行数(value)”。在调用void opeartor delete时删除map中voi..
-                                        </p>
-                                        <p>2020-08-30</p>
-                                        <button class="button is-small">Read More</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                        </div>
-                    
-                
-                    
-                        <div class="content-box  " style="margin-bottom: 27px;">
-                            <a class="post-hover" href="/2020/08/29/重载new-delete，new-delete/">
-                            <div class="columns" style="min-height: 230px;">
-                                
-                                    <div class="column is-4-desktop is-5-tablet post-avatar is-hidden-mobile"
-                                         style="margin: 10px; background-size: cover;background-image: url('/images/new_delete.png')">
-                                    </div>
-                                
-                                <div class="column is-8-desktop post-content is-flex align-center">
-                                    <div class="content">
-                                        <h3>重载new|delete，new[]|delete[]</h3>
-                                        
-                                        <p>
-                                            
-                                                <span class="tag is-post-tag">C++</span>
-                                            
-                                        </p>
-                                        <p>
-                                            一、new，delete和new[]，delete[]1.new和new[]主要完成两个动作(按如下顺序执行)
-
-调用void* operator new和void* operator new[]进行内存分配，这两个函数其实就是malloc的一层封装。
-自定义的类，且有构造函数。会再次调用类的构造函数进行初始化。次层是由系统自己完成的，不可以由程序员进行..
-                                        </p>
-                                        <p>2020-08-29</p>
-                                        <button class="button is-small">Read More</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                        </div>
-                    
-                
-                    
-                        <div class="content-box  " style="margin-bottom: 27px;">
-                            <a class="post-hover" href="/2020/08/28/Cmake注解/">
-                            <div class="columns" style="min-height: 230px;">
-                                
-                                <div class="column is-8-desktop post-content is-flex align-center">
-                                    <div class="content">
-                                        <h3>Cmake注解</h3>
-                                        
-                                        <p>
-                                            
-                                        </p>
-                                        <p>
-                                            占坑待更
-
-                                        </p>
-                                        <p>2020-08-28</p>
-                                        <button class="button is-small">Read More</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                        </div>
-                    
-                
-                    
-                        <div class="content-box  " style="margin-bottom: 27px;">
-                            <a class="post-hover" href="/2020/08/24/QT线程同步-QWaitCondition上锁用法/">
-                            <div class="columns" style="min-height: 230px;">
-                                
-                                <div class="column is-8-desktop post-content is-flex align-center">
-                                    <div class="content">
-                                        <h3>QT线程同步_QWaitCondition上锁用法</h3>
-                                        
-                                        <p>
-                                            
-                                        </p>
-                                        <p>
-                                            QT不同的线程之间的同步，可以使用QWaitCondition进行。不做同步代码如下
-/*不做线程同步的代码*/
-
-//以下为主线程伪码
-emit sendUDP(buff);//信号触发UDP线程发送槽函数
-if(a==b){//此处的a为UDP线程接受到的结果，b为主线程的值
-   //do some
-}
-
-
-//以下为UDP线程伪码
-recv（&a..
-                                        </p>
-                                        <p>2020-08-24</p>
-                                        <button class="button is-small">Read More</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                        </div>
-                    
-                
-                <!--翻頁-->
-                <nav class="pagination is-flex" style="justify-content: flex-end">
-                    
-                </nav>
-            </section>
             
         </div>
     </div>
-</div>
+</section>
+<script>
+    // 获取第一张图, 用以当封面背景图
+    var img = document.querySelectorAll('img')[1]
+
+    if (img) {
+        var header_box = document.querySelector('#header_box')
+        header_box.style.backgroundImage = 'url('+ img.src +')'
+    }
+</script>
+
+<!-- for code block highlight --> 
+<!-- theme.block_highlight -->
+<!-- we do not guarantee the char sequences spell right, usr himself do it -->
+
+<link rel="stylesheet" href="/css/highlight_rainbow.css">
+
+<script src="/js/highlight.min.js"></script>
+<script type="text/javascript"> hljs.initHighlightingOnLoad();</script>
 
       </div>
   </div>
