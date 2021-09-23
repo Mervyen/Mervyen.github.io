@@ -17,19 +17,20 @@
   
   <title>vector的size()和capacity() | Mervyen</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="近期被问到如下问题，以为只是简单的类构造和析构调用关系并且加上vector的重新分配内存问题。 回答完成之后，自己上机跑了一次，发现和自己回答的顺序有出入，仔细查询后发现自己对于vector里的内存分配理解有误。 1.题目#include &lt;vector&gt; #include &lt;iostream&gt; struct Cat { &#x2F;&#x2F; 构造 cat() {     printf(&amp;">
+  <meta name="description" content="近期被问到如下问题，以为只是简单的类构造和析构调用关系并且加上vector的重新分配内存问题。 回答完成之后，自己上机跑了一次，发现和自己回答的顺序有出入，仔细查询后发现自己对于vector里的内存分配理解有误。 1.问题引入1.1原题#include &lt;vector&gt; #include &lt;iostream&gt; struct Cat { &#x2F;&#x2F; 构造 cat() {     p">
 <meta property="og:type" content="article">
 <meta property="og:title" content="vector的size()和capacity()">
 <meta property="og:url" content="http://yoursite.com/2021/09/14/vector%E7%9A%84size-%E5%92%8Ccapacity/index.html">
 <meta property="og:site_name" content="Mervyen">
-<meta property="og:description" content="近期被问到如下问题，以为只是简单的类构造和析构调用关系并且加上vector的重新分配内存问题。 回答完成之后，自己上机跑了一次，发现和自己回答的顺序有出入，仔细查询后发现自己对于vector里的内存分配理解有误。 1.题目#include &lt;vector&gt; #include &lt;iostream&gt; struct Cat { &#x2F;&#x2F; 构造 cat() {     printf(&amp;">
+<meta property="og:description" content="近期被问到如下问题，以为只是简单的类构造和析构调用关系并且加上vector的重新分配内存问题。 回答完成之后，自己上机跑了一次，发现和自己回答的顺序有出入，仔细查询后发现自己对于vector里的内存分配理解有误。 1.问题引入1.1原题#include &lt;vector&gt; #include &lt;iostream&gt; struct Cat { &#x2F;&#x2F; 构造 cat() {     p">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://yoursite.com/images/vector_mem.png">
 <meta property="og:image" content="http://yoursite.com/images/vector_resize.png">
 <meta property="article:published_time" content="2021-09-14T13:16:27.000Z">
-<meta property="article:modified_time" content="2021-09-14T13:16:52.684Z">
+<meta property="article:modified_time" content="2021-09-23T12:19:16.332Z">
 <meta property="article:author" content="Mervyen">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://yoursite.com/images/vector_resize.png">
+<meta name="twitter:image" content="http://yoursite.com/images/vector_mem.png">
   
     <link rel="alternate" href="/atom.xml" title="Mervyen" type="application/atom+xml">
   
@@ -164,7 +165,7 @@
         <div class="content" style="overflow: auto">
             <p>近期被问到如下问题，以为只是简单的类构造和析构调用关系并且加上vector的重新分配内存问题。</p>
 <p>回答完成之后，自己上机跑了一次，发现和自己回答的顺序有出入，仔细查询后发现自己对于vector里的内存分配理解有误。</p>
-<h2 id="1-题目"><a href="#1-题目" class="headerlink" title="1.题目"></a>1.题目</h2><pre><code class="lang-c++">#include &lt;vector&gt;
+<h2 id="1-问题引入"><a href="#1-问题引入" class="headerlink" title="1.问题引入"></a>1.问题引入</h2><h3 id="1-1原题"><a href="#1-1原题" class="headerlink" title="1.1原题"></a>1.1原题</h3><pre><code class="lang-c++">#include &lt;vector&gt;
 #include &lt;iostream&gt;
 struct Cat {
 // 构造
@@ -203,10 +204,78 @@ int main()
   }
 }
 </code></pre>
-<p>上述代码的输出如下：</p>
-<blockquote>
-<p>Cat()<br>Cat(Cat &amp;&amp; cat)<br>~Cat()<br>Cat()<br>Cat(Cat &amp;&amp; cat)<br>~Cat()<br>Cat()<br>Cat(Cat &amp;&amp; cat)<br>Cat(const Cat &amp;cat)<br>Cat(const Cat &amp;cat)<br>~Cat()<br>~Cat()<br>~Cat()<br>Cat()<br>Cat(Cat &amp;&amp; cat)<br>~Cat()<br>~Cat()<br>~Cat()<br>~Cat()<br>~Cat()</p>
-</blockquote>
+<h3 id="1-2-题目改写"><a href="#1-2-题目改写" class="headerlink" title="1.2 题目改写"></a>1.2 题目改写</h3><p>为了更好的看到内存的分配和析构，改写代码如下：</p>
+<pre><code class="lang-c++">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+
+//vector的内存分配
+template &lt;class Tp&gt;
+struct NAlloc {
+    typedef Tp value_type;
+    NAlloc() = default;
+    template &lt;class T&gt; NAlloc(const NAlloc&lt;T&gt;&amp;) {}
+
+    Tp* allocate(std::size_t n)
+    {
+        n *= sizeof(Tp);
+        std::cout &lt;&lt; &quot;allocating &quot; &lt;&lt; n &lt;&lt; &quot; bytes\n&quot;;
+        return static_cast&lt;Tp*&gt;(::operator new(n));
+    }
+
+    void deallocate(Tp* p, std::size_t n)
+    {
+        std::cout &lt;&lt; &quot;deallocating &quot; &lt;&lt; n*sizeof*p &lt;&lt; &quot; bytes\n&quot;;
+        ::operator delete(p);
+    }
+};
+
+struct Cat {
+    // 构造
+    Cat(short a) :m_No(a) {
+        printf(&quot;Cat(%d)\n&quot;,m_No);
+    }
+    //析构
+    ~Cat() {
+        printf(&quot;~Cat(%d)\n&quot;,m_No);
+    }
+    // 拷贝构造
+    Cat(const Cat &amp;cat) :m_No(cat.m_No){
+        printf(&quot;Cat(const Cat &amp;cat-%d)\n&quot;,m_No);
+    }
+    // 移动构造
+    Cat(Cat &amp;&amp; cat) :m_No(cat.m_No){
+        printf(&quot;Cat(Cat &amp;&amp; cat-%d)\n&quot;,m_No);
+    }
+    // 拷贝
+    Cat&amp; operator=(const Cat &amp;cat) {
+        printf(&quot;Cat&amp; operator=(const Cat &amp;cat-%d)\n&quot;,m_No);
+        return *this;
+    }
+    // 移动
+    Cat&amp; operator=(Cat &amp;&amp;cat) {
+        printf(&quot;Cat&amp; operator=(Cat &amp;&amp;cat-%d)\n&quot;,m_No);
+        return *this;
+    }
+
+public:
+    short m_No;
+};
+
+int main() {
+    std::vector&lt;Cat,NAlloc&lt;Cat&gt;&gt; vcCat;
+    vcCat.reserve(2);
+    for(int i = 0;i&lt;4;++i){
+        std::cout&lt;&lt;&quot;\n&quot;&lt;&lt;&quot;i = &quot;&lt;&lt;i&lt;&lt;&quot;\n&quot;;
+        vcCat.push_back(Cat(i));
+        std::cout&lt;&lt;&quot;i = &quot;&lt;&lt;i&lt;&lt;&quot;\n&quot;;
+    }
+//    std::cout&lt;&lt;&quot;\n\n rvec cpy&quot;&lt;&lt;&quot;\n&quot;;
+//    std::vector&lt;Cat,NAlloc&lt;Cat&gt;&gt; tempVec;
+//    tempVec = vcCat;
+    return 0;
+}
+</code></pre>
+<p><img src="/images/vector_mem.png" alt=""></p>
 <h2 id="2-size-和capacity-区别"><a href="#2-size-和capacity-区别" class="headerlink" title="2.size()和capacity()区别"></a>2.size()和capacity()区别</h2><blockquote>
 <p>size()指当前容器里面真的有多少个变量。</p>
 <p>capacity()指当前容器预分配了多少个变量的内存。</p>
