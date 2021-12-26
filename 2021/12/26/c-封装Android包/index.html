@@ -15,15 +15,24 @@
   </script>
 
   
-  <title>Archives | Mervyen</title>
+  <title>c++封装Android包 | Mervyen</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Mervyen">
-<meta property="og:url" content="http://yoursite.com/archives/page/3/index.html">
+  <meta name="description" content="文章主要分成三个部分 1.ndk封装so库 2.so库和native JAVA类封装成aar包 3.使用aar包  1.ndk-build封装so库文章的逻辑是先拥有了c++的库，然后Android层才去调用。所以顺序为先编写c++代码，再编写java代码 1.1 编写底层c++部分代码此部分因为是封装教程的原因，所以尽可能多的包含返回类型 &#x2F;&#x2F;KeyBoard.h #ifndef CPPCOD">
+<meta property="og:type" content="article">
+<meta property="og:title" content="c++封装Android包">
+<meta property="og:url" content="http://yoursite.com/2021/12/26/c-%E5%B0%81%E8%A3%85Android%E5%8C%85/index.html">
 <meta property="og:site_name" content="Mervyen">
+<meta property="og:description" content="文章主要分成三个部分 1.ndk封装so库 2.so库和native JAVA类封装成aar包 3.使用aar包  1.ndk-build封装so库文章的逻辑是先拥有了c++的库，然后Android层才去调用。所以顺序为先编写c++代码，再编写java代码 1.1 编写底层c++部分代码此部分因为是封装教程的原因，所以尽可能多的包含返回类型 &#x2F;&#x2F;KeyBoard.h #ifndef CPPCOD">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://yoursite.com/images/cppPack_aar_genTheJni_h.png">
+<meta property="og:image" content="http://yoursite.com/images/cppPack_aar_genTheJni_exTool.png">
+<meta property="og:image" content="http://yoursite.com/images/cppPack_aar_buildSH.png">
+<meta property="og:image" content="http://yoursite.com/images/cppPack_aar_contens.png">
+<meta property="article:published_time" content="2021-12-26T09:42:17.000Z">
+<meta property="article:modified_time" content="2021-12-26T10:16:42.557Z">
 <meta property="article:author" content="Mervyen">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/images/cppPack_aar_genTheJni_h.png">
   
     <link rel="alternate" href="/atom.xml" title="Mervyen" type="application/atom+xml">
   
@@ -101,463 +110,531 @@
 
   <div id="main-wrap" class="position-relative" style="margin-top: 55px;">
       <div class="main-inner-content">
-          <style>
-    .post-hover:hover {
-        box-shadow: inset 0 0 100px #000;
-        transition: box-shadow .2s;
-    }
+          <!--博文页面-->
 
-    .sub-post-container .post-hover:hover h3 {
-        text-decoration: underline gray;
-    }
-
-
-    .primary-item-main {
-        height: 330px;
+<style>
+    .header-box {
+        height: 370px;
+        filter: blur(10px);
         background-size: cover;
+        background-color: lightsteelblue;
     }
 
-    .primary-container .title,
-    .primary-container .sub-title,
-    .primary-container .post-content-text,
-    .primary-container .date {
-        color: #fff;
+    .post-box {
+        padding: 15px;
+        padding-top: 60px;
+        min-height: 80vh;
+        margin-top: -200px;
+        border-radius: 4px;
+        background-color: rgba(255,255,255,.8);
     }
 
-    .post-content-text {
-        color: #f1f1f1!important;
+    .post-avatar {
+        height: 30px;
+        width: 30px;
+        border-radius: 50%;
     }
 
-    .primary-container .post-hover {
-        background: black;
+    .flow-chart {
+        text-align: center;
     }
 
-    .content-bg-mask {
-        background: rgba(0,0,0,.4);
+    img[alt="post-cover"] {
+        display: none;
     }
-
 </style>
-
-<div style="background: #f5f8f9;">
-    <div id="main-container" class="container" style="padding-top: 20px;">
-        <div class="is-flex main-content justify-center">
-            <section class="column is-9">
-                
-<div class="primary-container content-box is-flex-desktop clear-padding bottom-line" style="margin-bottom: 25px;">
-    <div class="column  is-7-desktop">
-        <a href="/2020/08/28/Cmake注解/">
-            <div class="full-height post-hover"
-                 style="
-                         background-image: url('');
-                         height: 350px;
-                         background-size: cover;
-                         background-repeat: no-repeat;
-                         ">
-                    <div class=" is-flex flex-column center content has-text-centered full-height has-padding content-bg-mask">
-                        <h1 class="title text-shadow" style="margin-bottom: 15px;">
-                            Cmake注解
-                        </h1>
-                        <div>
-                        
-                            
-                        
-                        </div>
-                        <p class="post-content-text is-marginless has-padding text-shadow">
-                            占坑待更
-
-                        </p>
-                        <p class="date text-shadow">2020-08-28</p>
-                        <button class="button is-info is-small">Read More</button>
-                    </div>
+<header>
+    <div id="header_box" class="header-box"></div>
+</header>
+<section>
+    <div class="container post-box">
+        <div class="content post-title is-flex center flex-column" style="margin-bottom: 70px; overflow: auto;">
+            <h1 class="has-text-centered" style="padding-bottom: 10px; border-bottom: 3px solid #fff">
+                <strong>c++封装Android包</strong>
+            </h1>
+            
+            <div class="is-flex align-center">
+                <img class="post-avatar" src="https://cdn2.iconfinder.com/data/icons/rcons-user/32/male-shadow-circle-512.png">
+                <span style="padding:0 10px;"> <span class="sub-title">By</span> Mervyen</span>
+                <span class="post-date sub-title">at: 2021-12-26</span>
             </div>
-        </a>
-    </div>
-    <div class="column is-5 is-hidden-touch" style="padding-left: 0;">
-        <div class="full-height is-flex flex-column justify-space-between" style="min-height: 350px;">
             
-                
-<a class="post-hover" href="/2020/08/24/QT线程同步-QWaitCondition上锁用法/" style="height: 48.5%">
-    <div class="content is-hidden-touch full-height overflow-hidden" style="background-image: url('')">
-        <div class="content-bg-mask full-width full-height has-padding">
-            <h3 class="title is-marginless text-shadow">
-                QT线程同步_QWaitCondition上锁用法
-            </h3>
-            
-            
-            
-            <p class="sub-title text-shadow"></p>
-            <p class="is-marginless text-shadow post-content-text">
-                QT不同的线程之间的同步，可以使用QWaitCondition进行。不做同步代码如下
-/*不做线..
-            </p>
-            <p class="date text-shadow is-marginless">2020-08-24</p>
-        </div>
-    </div>
-</a>
-            
-            
-                
-<a class="post-hover" href="/2020/08/21/git总结/" style="height: 48.5%">
-    <div class="content is-hidden-touch full-height overflow-hidden" style="background-image: url('')">
-        <div class="content-bg-mask full-width full-height has-padding">
-            <h3 class="title is-marginless text-shadow">
-                git总结
-            </h3>
-            
-            
-            
-            <p class="sub-title text-shadow"></p>
-            <p class="is-marginless text-shadow post-content-text">
-                git命令总结
-本地库(working tree)，暂存区(index file)的操作指令1...
-            </p>
-            <p class="date text-shadow is-marginless">2020-08-21</p>
-        </div>
-    </div>
-</a>
+                <div>
+                    
+                </div>
             
         </div>
-    </div>
-    <div class="column is-12 is-hidden-desktop">
-        
-        
-<a class="post-hover" href="/2020/08/24/QT线程同步-QWaitCondition上锁用法/" style="height: 48.5%">
-    <div class="content is-hidden-touch full-height overflow-hidden" style="background-image: url('')">
-        <div class="content-bg-mask full-width full-height has-padding">
-            <h3 class="title is-marginless text-shadow">
-                QT线程同步_QWaitCondition上锁用法
-            </h3>
-            
-            
-            
-            <p class="sub-title text-shadow"></p>
-            <p class="is-marginless text-shadow post-content-text">
-                QT不同的线程之间的同步，可以使用QWaitCondition进行。不做同步代码如下
-/*不做线..
-            </p>
-            <p class="date text-shadow is-marginless">2020-08-24</p>
-        </div>
-    </div>
-</a>
-        
-        
-        
-<a class="post-hover" href="/2020/08/21/git总结/" style="height: 48.5%">
-    <div class="content is-hidden-touch full-height overflow-hidden" style="background-image: url('')">
-        <div class="content-bg-mask full-width full-height has-padding">
-            <h3 class="title is-marginless text-shadow">
-                git总结
-            </h3>
-            
-            
-            
-            <p class="sub-title text-shadow"></p>
-            <p class="is-marginless text-shadow post-content-text">
-                git命令总结
-本地库(working tree)，暂存区(index file)的操作指令1...
-            </p>
-            <p class="date text-shadow is-marginless">2020-08-21</p>
-        </div>
-    </div>
-</a>
-        
-    </div>
+        <div class="content" style="overflow: auto">
+            <blockquote>
+<p>文章主要分成三个部分</p>
+<p>1.ndk封装so库</p>
+<p>2.so库和native JAVA类封装成aar包</p>
+<p>3.使用aar包</p>
+</blockquote>
+<h2 id="1-ndk-build封装so库"><a href="#1-ndk-build封装so库" class="headerlink" title="1.ndk-build封装so库"></a>1.ndk-build封装so库</h2><p>文章的逻辑是先拥有了c++的库，然后Android层才去调用。所以顺序为先编写c++代码，再编写java代码</p>
+<h3 id="1-1-编写底层c-部分代码"><a href="#1-1-编写底层c-部分代码" class="headerlink" title="1.1 编写底层c++部分代码"></a>1.1 编写底层c++部分代码</h3><p>此部分因为是封装教程的原因，所以尽可能多的包含返回类型</p>
+<pre><code class="lang-c++">//KeyBoard.h
+#ifndef CPPCODE_KEYBOARD_H
+#define CPPCODE_KEYBOARD_H
+
+#define NAMESPACE_BEGIN namespace jniTest{
+#define NAMESPACE_END }
+#include &lt;string&gt;
+
+NAMESPACE_BEGIN
+class KeyBoard {
+public:
+    KeyBoard(const char* name,int inventory,double price,char type):
+    _keyboardName(name),
+    _inventory(inventory),
+    _switch(type),
+    _price(price)
+    {}
+    ~KeyBoard() = default;
+
+    const char* getName ();
+    char getSwitch();
+    double getPrice();
+    int getInventory();
+    bool onSale();
+
+private:
+    char _switch;
+    std::string _keyboardName;
+    double _price;
+    int _inventory;
+};
+
+NAMESPACE_END
+#endif //CPPCODE_KEYBOARD_H
+</code></pre>
+<p>以下是<code>KeyBoard.cpp</code>内容</p>
+<pre><code class="lang-c++">//KeyBoard.cpp
+#include &quot;KeyBoard.h&quot;
+
+NAMESPACE_BEGIN
+char KeyBoard::getSwitch() {
+    return _switch;
+}
+
+const char *KeyBoard::getName(){
+    return _keyboardName.c_str();
+}
+
+double KeyBoard::getPrice() {
+    return _price;
+}
+
+bool KeyBoard::onSale() {
+    return false;
+}
+
+int KeyBoard::getInventory() {
+    return _inventory;
+}
+NAMESPACE_END
+</code></pre>
+<h3 id="1-2-编写JNI代码"><a href="#1-2-编写JNI代码" class="headerlink" title="1.2 编写JNI代码"></a>1.2 编写JNI代码</h3><p>native层代码如下，其中私有变量<code>_objPtr</code>是为了保存c++的指针</p>
+<pre><code class="lang-java">package com.Mervyen;
+public class MyKeyBoard {
+    static {
+        try{
+            System.loadLibrary(&quot;MyKeyBoard&quot;);
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+    public MyKeyBoard(String name,int inventory,double price,char type){
+        _objPtr = init(name,inventory,price,type);
+    }
+    public String getName(){
+        return _getName();
+    }
+    public char getSwitch(){
+        return _getSwitch();
+    }
+    public double getPrice(){
+        return _getPrice();
+    }
+    public int getInventory(){
+        return _getInventory();
+    }
+    public boolean onSale(){
+        return _onSale();
+    }
+
+    private final long _objPtr;//保存c++对象
+
+    private native long init(String name,int inventory,double price, char type);
+    private native String _getName();
+    private native char _getSwitch();
+    private native double _getPrice();
+    private native int _getInventory();
+    private native boolean _onSale();
+}
+</code></pre>
+<h3 id="1-3-将MyKeyBoard-java生成h文件"><a href="#1-3-将MyKeyBoard-java生成h文件" class="headerlink" title="1.3 将MyKeyBoard.java生成h文件"></a>1.3 将<code>MyKeyBoard.java</code>生成h文件</h3><pre><code class="lang-java">package com.Mervyen;
+public class MyKeyBoard {
+    static {
+        try{
+            System.loadLibrary(&quot;MyKeyBoard&quot;);
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+    public MyKeyBoard(String name,int inventory,double price,char type){
+        _objPtr = init(name,inventory,price,type);
+    }
+    public String getName(){
+        return _getName();
+    }
+    public char getSwitch(){
+        return _getSwitch();
+    }
+    public double getPrice(){
+        return _getPrice();
+    }
+    public int getInventory(){
+        return _getInventory();
+    }
+    public boolean onSale(){
+        return _onSale();
+    }
+
+    private final long _objPtr;//保存c++对象
+
+    private native long init(String name,int inventory,double price, char type);
+    private native String _getName();
+    private native char _getSwitch();
+    private native double _getPrice();
+    private native int _getInventory();
+    private native boolean _onSale();
+}
+</code></pre>
+<p>此处使用的IDEA的工具，直接使用<code>External Tools</code><em>(下文有配置讲解)</em>生成h文件。</p>
+<blockquote>
+<p>此处生成头文件的时候，如果有些引入包或者函数编译不过，只要不是native的方法。1.先注释掉，2.等到h文件编译完成，3.等到最后so文件已经生成需要loadlib时，再将代码取消注释。</p>
+</blockquote>
+<p><img src="/images/cppPack_aar_genTheJni_h.png" alt=""></p>
+<p>生成<code>com_Mervyen_MyKeyBoard.h</code>文件。</p>
+<pre><code class="lang-c++">/* DO NOT EDIT THIS FILE - it is machine generated */
+#include &lt;jni.h&gt;
+#include &quot;KeyBoard.h&quot;
+
+/* Header for class com_Mervyen_MyKeyBoard */
+
+#ifndef _Included_com_Mervyen_MyKeyBoard
+#define _Included_com_Mervyen_MyKeyBoard
+#ifdef __cplusplus
+extern &quot;C&quot; {
+#endif
+/*
+ * Class:     com_Mervyen_MyKeyBoard
+ * Method:    init
+ * Signature: (Ljava/lang/String;IDC)J
+ */
+JNIEXPORT jlong JNICALL Java_com_Mervyen_MyKeyBoard_init
+  (JNIEnv *, jobject, jstring, jint, jdouble, jchar);
+
+/*
+ * Class:     com_Mervyen_MyKeyBoard
+ * Method:    _getName
+ * Signature: ()Ljava/lang/String;
+ */
+JNIEXPORT jstring JNICALL Java_com_Mervyen_MyKeyBoard__1getName
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     com_Mervyen_MyKeyBoard
+ * Method:    _getSwitch
+ * Signature: ()C
+ */
+JNIEXPORT jchar JNICALL Java_com_Mervyen_MyKeyBoard__1getSwitch
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     com_Mervyen_MyKeyBoard
+ * Method:    _getPrice
+ * Signature: ()D
+ */
+JNIEXPORT jdouble JNICALL Java_com_Mervyen_MyKeyBoard__1getPrice
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     com_Mervyen_MyKeyBoard
+ * Method:    _getInventory
+ * Signature: ()I
+ */
+JNIEXPORT jint JNICALL Java_com_Mervyen_MyKeyBoard__1getInventory
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     com_Mervyen_MyKeyBoard
+ * Method:    _onSale
+ * Signature: ()Z
+ */
+JNIEXPORT jboolean JNICALL Java_com_Mervyen_MyKeyBoard__1onSale
+  (JNIEnv *, jobject);
+
+#ifdef __cplusplus
+}
+#endif
+#endif
+</code></pre>
+<p>对于头文件中的一些参数说明：</p>
+<p>函数的命名规则为:<code>Java_类全路径_方法名</code>。</p>
+<p>方法签名(Signature):因为函数重载的原因，会有同名函数的存在，所以需要用签名来区分方法。</p>
+<p>签名的格式为:<strong>(形参参数类型列表)返回值</strong>，所有引用均以<strong><code>L</code></strong>开头，并在结尾处需要用<strong><code>;</code></strong>。</p>
+<blockquote>
+<p>eg :</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">method descriptor</th>
+<th style="text-align:center">java type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">“()Ljava/lang/String;”</td>
+<td style="text-align:center">String f();</td>
+</tr>
+<tr>
+<td style="text-align:center">“(IJLjava/lang/Class;)S”</td>
+<td style="text-align:center">short f(int a, long b,Class c)</td>
+</tr>
+</tbody>
+</table>
 </div>
-
-                    
-                    
-                
-                    
-                        <div class="content-box  is-hidden-desktop" style="margin-bottom: 27px;">
-                            <a class="post-hover" href="/2020/08/24/QT线程同步-QWaitCondition上锁用法/">
-                            <div class="columns" style="min-height: 230px;">
-                                
-                                <div class="column is-8-desktop post-content is-flex align-center">
-                                    <div class="content">
-                                        <h3>QT线程同步_QWaitCondition上锁用法</h3>
-                                        
-                                        <p>
-                                            
-                                        </p>
-                                        <p>
-                                            QT不同的线程之间的同步，可以使用QWaitCondition进行。不做同步代码如下
-/*不做线程同步的代码*/
-
-//以下为主线程伪码
-emit sendUDP(buff);//信号触发UDP线程发送槽函数
-if(a==b){//此处的a为UDP线程接受到的结果，b为主线程的值
-   //do some
+</blockquote>
+<p>部分对应关系：</p>
+<blockquote>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Field Descriptor</th>
+<th>JAVA type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Z</td>
+<td>boolean</td>
+</tr>
+<tr>
+<td style="text-align:center">B</td>
+<td>byte</td>
+</tr>
+<tr>
+<td style="text-align:center">C</td>
+<td>char</td>
+</tr>
+<tr>
+<td style="text-align:center">S</td>
+<td>short</td>
+</tr>
+<tr>
+<td style="text-align:center">I</td>
+<td>int</td>
+</tr>
+<tr>
+<td style="text-align:center">J</td>
+<td>long</td>
+</tr>
+<tr>
+<td style="text-align:center">F</td>
+<td>float</td>
+</tr>
+<tr>
+<td style="text-align:center">D</td>
+<td>double</td>
+</tr>
+</tbody>
+</table>
+</div>
+</blockquote>
+<p>配置IDEA的<code>External Tools</code> 。<code>Preferences</code>-&gt;<code>Tools</code>-&gt;<code>External Tools</code>。再点击<code>+</code>号就可以添加了，具体配置如下。</p>
+<p><img src="/images/cppPack_aar_genTheJni_exTool.png" alt=""></p>
+<h3 id="1-4-编写com-Mervyen-MyKeyBoard-cpp"><a href="#1-4-编写com-Mervyen-MyKeyBoard-cpp" class="headerlink" title="1.4 编写com_Mervyen_MyKeyBoard.cpp"></a>1.4 编写<code>com_Mervyen_MyKeyBoard.cpp</code></h3><blockquote>
+<p>此处cpp文件的命名随意，我习惯和头文件一个名字，这样方便以后的查找。</p>
+</blockquote>
+<pre><code class="lang-c++">#include &lt;jni.h&gt;
+#include &quot;com_Mervyen_MyKeyBoard.h&quot;
+using namespace jniTest;
+/*
+ * description: 获取java层保留的c++层指针，来做调用。
+ * Method:    getCppObj
+ */
+KeyBoard *getCppObj(JNIEnv *env,jobject obj){
+    if(!env||!obj){
+        return nullptr;
+    }
+    //获取obj的类
+    jclass clazz_obj = env-&gt;GetObjectClass(obj);
+    if(!clazz_obj){
+        return nullptr;
+    }
+    //获取obj类里面保存c++指针的变量名
+    jfieldID fid_CppObj = env-&gt;GetFieldID(clazz_obj,&quot;_objPtr&quot;,&quot;J&quot;);
+    if(!fid_CppObj){
+        return nullptr;
+    }
+    long CppObj = env-&gt;GetLongField(obj,fid_CppObj);
+    return reinterpret_cast&lt;KeyBoard*&gt;(CppObj);
 }
 
 
-//以下为UDP线程伪码
-recv（&a..
-                                        </p>
-                                        <p>2020-08-24</p>
-                                        <button class="button is-small">Read More</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                        </div>
-                    
-                
-                    
-                        <div class="content-box  is-hidden-desktop" style="margin-bottom: 27px;">
-                            <a class="post-hover" href="/2020/08/21/git总结/">
-                            <div class="columns" style="min-height: 230px;">
-                                
-                                <div class="column is-8-desktop post-content is-flex align-center">
-                                    <div class="content">
-                                        <h3>git总结</h3>
-                                        
-                                        <p>
-                                            
-                                        </p>
-                                        <p>
-                                            git命令总结
-本地库(working tree)，暂存区(index file)的操作指令1.初始化本地库操作1.1 初始化命令
+/*
+ * Class:     com_Mervyen_MyKeyBoard
+ * Method:    init
+ * Signature: (Ljava/lang/String;IDC)J
+ */
+JNIEXPORT jlong JNICALL Java_com_Mervyen_MyKeyBoard_init
+  (JNIEnv *env, jobject obj, jstring js_keyBoardName, jint ji_inventory, jdouble jd_price, jchar jc_type)
+{
+    //将jstring转成const char *
+    const char* str_keyName = env-&gt;GetStringUTFChars(js_keyBoardName,nullptr);
+    //直接new c++对象
+    auto myKeyboard = new(std::nothrow) KeyBoard(str_keyName, ji_inventory,jd_price,static_cast&lt;char&gt;(jc_type));
+    return (jlong)myKeyboard;
+  }
 
+/*
+ * Class:     com_Mervyen_MyKeyBoard
+ * Method:    _getName
+ * Signature: ()Ljava/lang/String;
+ */
+JNIEXPORT jstring JNICALL Java_com_Mervyen_MyKeyBoard__1getName
+  (JNIEnv *env, jobject obj){
+    //获取c++对象
+    KeyBoard *cppObj = getCppObj(env,obj);
+    if(cppObj!= nullptr){
+        const char* name =cppObj-&gt;getName();
+        return env-&gt;NewStringUTF(name);
+    }
+    return NULL;//TODO:这里测一下null和nullptr对于JAVA有什么影响
+}
 
-命令：git init
-注意不要随意改动当前目录下.git文件内的东西
+/*
+ * Class:     com_Mervyen_MyKeyBoard
+ * Method:    _getSwitch
+ * Signature: ()C
+ */
+JNIEXPORT jchar JNICALL Java_com_Mervyen_MyKeyBoard__1getSwitch
+  (JNIEnv *env, jobject obj){
+    //获取c++对象
+    KeyBoard *cppObj = getCppObj(env,obj);
+    if(cppObj!= nullptr){
+        char switchName =cppObj-&gt;getSwitch();
+        return static_cast&lt;unsigned short&gt;(switchName);
+    }
+    return 10;
+}
 
+/*
+ * Class:     com_Mervyen_MyKeyBoard
+ * Method:    _getPrice
+ * Signature: ()D
+ */
+JNIEXPORT jdouble JNICALL Java_com_Mervyen_MyKeyBoard__1getPrice
+  (JNIEnv *env, jobject obj){
+    //获取c++对象
+    KeyBoard *cppObj = getCppObj(env,obj);
+    if(cppObj!= nullptr){
+        jdouble price = cppObj-&gt;getPrice();
+        return price;
+    }
+    return -1;//异常的话，返回负一
+}
 
-1.2设置签名(标识个人)
+/*
+ * Class:     com_Mervyen_MyKeyBoard
+ * Method:    _getInventory
+ * Signature: ()I
+ */
+JNIEXPORT jint JNICALL Java_com_Mervyen_MyKeyBoard__1getInventory
+  (JNIEnv *env, jobject obj){
+    //获取c++对象
+    KeyBoard *cppObj = getCppObj(env,obj);
+    if(cppObj!= nullptr){
+        jint inventory = cppObj-&gt;getInventory();
+        return inventory;
+    }
+    return -1;//异常的话，返回负一
+}
 
+/*
+ * Class:     com_Mervyen_MyKeyBoard
+ * Method:    _onSale
+ * Signature: ()Z
+ */
+JNIEXPORT jboolean JNICALL Java_com_Mervyen_MyKeyBoard__1onSale
+  (JNIEnv *env, jobject obj){
+    jboolean onSale = false;
+    //获取c++对象
+    KeyBoard *cppObj = getCppObj(env,obj);
+    if(cppObj!= nullptr){
+        onSale = cppObj-&gt;onSale();
+        return onSale;
+    }
+    return onSale;
+}
+</code></pre>
+<h3 id="1-5编写mk文件"><a href="#1-5编写mk文件" class="headerlink" title="1.5编写mk文件"></a>1.5编写mk文件</h3><p><code>Android.mk</code>内的一些<a href="https://developer.android.com/ndk/guides/android_mk?hl=zh-cn" target="_blank" rel="noopener">关键字</a>说明</p>
+<pre><code class="lang-makefile">#Android.mk
+#the lib&#39;s name
+LOCAL_MODULE :=MyKeyBoard
+#all cpp files
+LOCAL_SRC_FILES : = cppCode/KeyBoard/KeyBoard.cpp\
+MyKeyBoard/jni/com_Mervyen_MyKeyBoard.cpp
+#construct the so
+include ${BUILD_SHARED_LIBRARY}
+</code></pre>
+<p><code>Application.mk</code>内的一些<a href="https://developer.android.com/ndk/guides/application_mk?hl=zh-cn" target="_blank" rel="noopener">关键字</a>说明</p>
+<pre><code class="lang-makefile">#Application.mk
+APP_PLATFORM        :=android-16
+APP_ABI         :=armeabi-v7a arm64-v8a
+APP_OPTIM            :=release
+APP_STL            :=c++_static
+</code></pre>
+<p>当两个<code>.mk</code>文件写完之后，直接使用<code>ndk-build</code>即可。因为<code>ndk-build</code>有些参数需要传递，直接写个shell脚本比较方便和快捷</p>
+<pre><code class="lang-shell">#ndk-build --directory=./    
+ndk-build NDK_PROJECT_PATH=. NDK_APPLICATION_MK=Application.mk APP_BUILD_SCRIPT=Android.mk
+</code></pre>
+<p><img src="/images/cppPack_aar_buildSH.png" alt=""></p>
+<p>使用<code>ndk-build</code>之后会在当前目录下生成两个文件夹。libs即为so文件夹</p>
+<p><img src="/images/cppPack_aar_contens.png" alt=""></p>
+<h2 id="2-打包aar"><a href="#2-打包aar" class="headerlink" title="2.打包aar"></a>2.打包aar</h2><p>通过第一步，我们已经拿到了so文件。接来下需要将so文件和java的native层代码进行打包成为aar。提供给Android调用</p>
 
-命令（项目级别&gt;系统级别)
-
-项目级别：仅在当前项目有用（信息保存在.git/config）    git..
-                                        </p>
-                                        <p>2020-08-21</p>
-                                        <button class="button is-small">Read More</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                        </div>
-                    
-                
-                    
-                        <div class="content-box  " style="margin-bottom: 27px;">
-                            <a class="post-hover" href="/2020/08/07/static和extern关键字/">
-                            <div class="columns" style="min-height: 230px;">
-                                
-                                <div class="column is-8-desktop post-content is-flex align-center">
-                                    <div class="content">
-                                        <h3>static和extern关键字</h3>
-                                        
-                                        <p>
-                                            
-                                                <span class="tag is-post-tag">C++</span>
-                                            
-                                        </p>
-                                        <p>
-                                            对于static关键字的用途主要可以按照以下两个方面 
-
-作用域生存期
-
-1.静态局部变量
-①.static修饰的局部变量会在全局数据区分配内存（局部变量会分配在栈区，随着函数的结束而消亡）。所以static修饰的变量更适用于递归函数。②.static修饰的变量仅在程序第一次执行到该变量定义的定义时进行初始化，当再次执行到该该行时，程序并不会对此静态变量..
-                                        </p>
-                                        <p>2020-08-07</p>
-                                        <button class="button is-small">Read More</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                        </div>
-                    
-                
-                    
-                        <div class="content-box  " style="margin-bottom: 27px;">
-                            <a class="post-hover" href="/2020/07/24/leetcode-T64/">
-                            <div class="columns" style="min-height: 230px;">
-                                
-                                <div class="column is-8-desktop post-content is-flex align-center">
-                                    <div class="content">
-                                        <h3>leetcode-T64</h3>
-                                        
-                                        <p>
-                                            
-                                                <span class="tag is-post-tag">leetcode</span>
-                                            
-                                        </p>
-                                        <p>
-                                            T64 最短路径
-给定一个包含非负整数的 m x n 网格，请找出一条从左上角到右下角的路径，使得路径上的数字总和为最小。
-说明：每次只能向下或者向右移动一步。示例
-
-输入:[  [1,3,1],  [1,5,1],  [4,2,1]]输出: 7解释: 因为路径 1→3→1→1→1 的总和最小。
-
-结题思路1.当看到当前路径会依赖上一个结果，应该是联想到..
-                                        </p>
-                                        <p>2020-07-24</p>
-                                        <button class="button is-small">Read More</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                        </div>
-                    
-                
-                    
-                        <div class="content-box  " style="margin-bottom: 27px;">
-                            <a class="post-hover" href="/2020/07/21/QT串口随机切分帧问题/">
-                            <div class="columns" style="min-height: 230px;">
-                                
-                                <div class="column is-8-desktop post-content is-flex align-center">
-                                    <div class="content">
-                                        <h3>QT串口随机切分帧问题</h3>
-                                        
-                                        <p>
-                                            
-                                        </p>
-                                        <p>
-                                            QT串口随机切分帧问题在QT调试串口中，发现串口接收帧的时候并不是一次读完一整个数据帧。而是会给数据帧做随机切分，需要设置一个buffer来不断存取数据帧来装入最后的m_res中。
-假设同时传输数据帧A,数据帧B。帧头标识FRAMESTART帧尾标识END。
-数据帧A
-
-FRAMESTARTadasdweqweqwewqewqeqweENDadasdwe..
-                                        </p>
-                                        <p>2020-07-21</p>
-                                        <button class="button is-small">Read More</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                        </div>
-                    
-                
-                    
-                        <div class="content-box  " style="margin-bottom: 27px;">
-                            <a class="post-hover" href="/2020/07/19/VScode编译socket时链接库问题/">
-                            <div class="columns" style="min-height: 230px;">
-                                
-                                <div class="column is-8-desktop post-content is-flex align-center">
-                                    <div class="content">
-                                        <h3>VScode编译socket时链接库问题</h3>
-                                        
-                                        <p>
-                                            
-                                        </p>
-                                        <p>
-                                            VScode编译socket时链接库问题
-最近换了vscode做Udp，在VS下运行没问题的代码放到了VScode环境下就报错
-
-vscode terminal with exit code1
-
-在网上查了不少资料可算找到了，应该就是g++编译时链接库的问题。在VS下面只需要写如下代码就可以正常编译了。
-#include&lt;Winsock2.h&gt..
-                                        </p>
-                                        <p>2020-07-19</p>
-                                        <button class="button is-small">Read More</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                        </div>
-                    
-                
-                    
-                        <div class="content-box  " style="margin-bottom: 27px;">
-                            <a class="post-hover" href="/2020/07/17/Hexo部署报错FATAL-can-not-read-a-block-mapping-entry/">
-                            <div class="columns" style="min-height: 230px;">
-                                
-                                <div class="column is-8-desktop post-content is-flex align-center">
-                                    <div class="content">
-                                        <h3>Hexo部署报错FATAL can not read a block mapping entry</h3>
-                                        
-                                        <p>
-                                            
-                                        </p>
-                                        <p>
-                                            YAMLException: cannot read a block mapping entry; a multi line key may not be an implicit key at line 5, column 1:
-很久没有写hexo了，今天更新的时候突然发现部署新文章的时候出错了。出现了如下所示的错误
-
-YAMLException: ca..
-                                        </p>
-                                        <p>2020-07-17</p>
-                                        <button class="button is-small">Read More</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                        </div>
-                    
-                
-                    
-                        <div class="content-box  " style="margin-bottom: 27px;">
-                            <a class="post-hover" href="/2020/07/17/git空白文件上传问题/">
-                            <div class="columns" style="min-height: 230px;">
-                                
-                                <div class="column is-8-desktop post-content is-flex align-center">
-                                    <div class="content">
-                                        <h3>git空白文件上传问题</h3>
-                                        
-                                        <p>
-                                            
-                                                <span class="tag is-post-tag">git</span>
-                                            
-                                        </p>
-                                        <p>
-                                            git添加本地新文件夹
-git命令不可以添加空白文件夹，文件里面必须有文件才可以使用
-假设新建一个文件夹CODE，想用git提交
-mkdir code
-git add code//这句话会报错“fatal: pathspec &#39;code&#39; did not match any files.”
-//这是因为code是一个空的文件夹
-
-正确的想..
-                                        </p>
-                                        <p>2020-07-17</p>
-                                        <button class="button is-small">Read More</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                        </div>
-                    
-                
-                    
-                        <div class="content-box  " style="margin-bottom: 27px;">
-                            <a class="post-hover" href="/2020/06/12/ZSH导致command-not-found/">
-                            <div class="columns" style="min-height: 230px;">
-                                
-                                <div class="column is-8-desktop post-content is-flex align-center">
-                                    <div class="content">
-                                        <h3>ZSH导致command not found</h3>
-                                        
-                                        <p>
-                                            
-                                        </p>
-                                        <p>
-                                            ZSH导致command not found问题
-这几天折腾了下ohmyzsh来美化下终端，然后今天突然想写一篇文稿，突然发现！！！
-
-1.hexo命令没了2.node命令没了3.nvm命令没了但是我切回bash，这些命令就又都回来了！
-
-在网上找了不久之后知道了应该是路径的问题，是~/.zshrc里的环境变量没配置好。然后开始找，HEXO到底是怎么配进..
-                                        </p>
-                                        <p>2020-06-12</p>
-                                        <button class="button is-small">Read More</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                        </div>
-                    
-                
-                <!--翻頁-->
-                <nav class="pagination is-flex" style="justify-content: flex-end">
-                    
-                </nav>
-            </section>
+        </div>
+        <div class="post-reply">
+            
             
         </div>
     </div>
-</div>
+</section>
+<script>
+    // 获取第一张图, 用以当封面背景图
+    var img = document.querySelectorAll('img')[1]
+
+    if (img) {
+        var header_box = document.querySelector('#header_box')
+        header_box.style.backgroundImage = 'url('+ img.src +')'
+    }
+</script>
+
+<!-- for code block highlight --> 
+<!-- theme.block_highlight -->
+<!-- we do not guarantee the char sequences spell right, usr himself do it -->
+
+<link rel="stylesheet" href="/css/highlight_rainbow.css">
+
+<script src="/js/highlight.min.js"></script>
+<script type="text/javascript"> hljs.initHighlightingOnLoad();</script>
 
       </div>
   </div>

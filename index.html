@@ -145,17 +145,17 @@
                 
 <div class="primary-container content-box is-flex-desktop clear-padding bottom-line" style="margin-bottom: 25px;">
     <div class="column  is-7-desktop">
-        <a href="/2021/09/14/vector的size-和capacity/">
+        <a href="/2021/12/26/c-封装Android包/">
             <div class="full-height post-hover"
                  style="
-                         background-image: url('/images/vector_mem.png');
+                         background-image: url('/images/cppPack_aar_genTheJni_h.png');
                          height: 350px;
                          background-size: cover;
                          background-repeat: no-repeat;
                          ">
                     <div class=" is-flex flex-column center content has-text-centered full-height has-padding content-bg-mask">
                         <h1 class="title text-shadow" style="margin-bottom: 15px;">
-                            vector的size()和capacity()
+                            c++封装Android包
                         </h1>
                         <div>
                         
@@ -163,11 +163,15 @@
                         
                         </div>
                         <p class="post-content-text is-marginless has-padding text-shadow">
-                            近期被问到如下问题，以为只是简单的类构造和析构调用关系并且加上vector的重新分配内存问题。
-回答完成之后，自己上机跑了一次，发现和自己回答的顺序有出入，仔细查询后发现自己对于vector里的内存分配理解有误。
-1.问题引入1.1原题..
+                            
+文章主要分成三个部分
+1.ndk封装so库
+2.so库和native JAVA类封装成aar包
+3.使用aar包
+
+1.ndk-build封装so库文章的逻辑是先拥有了c++的库，然后Android层才去调用。所以顺序为先编写c++代..
                         </p>
-                        <p class="date text-shadow">2021-09-14</p>
+                        <p class="date text-shadow">2021-12-26</p>
                         <button class="button is-info is-small">Read More</button>
                     </div>
             </div>
@@ -177,6 +181,27 @@
         <div class="full-height is-flex flex-column justify-space-between" style="min-height: 350px;">
             
                 
+<a class="post-hover" href="/2021/09/14/vector的size-和capacity/" style="height: 48.5%">
+    <div class="content is-hidden-touch full-height overflow-hidden" style="background-image: url('/images/vector_mem.png')">
+        <div class="content-bg-mask full-width full-height has-padding">
+            <h3 class="title is-marginless text-shadow">
+                vector的size()和capacity()
+            </h3>
+            
+            
+            
+            <p class="sub-title text-shadow"></p>
+            <p class="is-marginless text-shadow post-content-text">
+                近期被问到如下问题，以为只是简单的类构造和析构调用关系并且加上vector的重新分配内存问题。
+..
+            </p>
+            <p class="date text-shadow is-marginless">2021-09-14</p>
+        </div>
+    </div>
+</a>
+            
+            
+                
 <a class="post-hover" href="/2021/08/13/mac下的clion配置OpenSSL/" style="height: 48.5%">
     <div class="content is-hidden-touch full-height overflow-hidden" style="background-image: url('/images/mac_install_OpenSSL1.png')">
         <div class="content-bg-mask full-width full-height has-padding">
@@ -191,29 +216,6 @@
                 在编译开源库workflow时，里面使用了OpenSSL库，但是mac默认的库是LibreSSL..
             </p>
             <p class="date text-shadow is-marginless">2021-08-13</p>
-        </div>
-    </div>
-</a>
-            
-            
-                
-<a class="post-hover" href="/2021/06/16/c-async/" style="height: 48.5%">
-    <div class="content is-hidden-touch full-height overflow-hidden" style="background-image: url('/images/async_destructor.png')">
-        <div class="content-bg-mask full-width full-height has-padding">
-            <h3 class="title is-marginless text-shadow">
-                c++_async()
-            </h3>
-            
-            
-            <span class="tag is-post-tag">c++</span>
-            
-            
-            <p class="sub-title text-shadow"></p>
-            <p class="is-marginless text-shadow post-content-text">
-                1.wait_for或wait_unitil
-此小节更详细的解释可在《Effective Mod..
-            </p>
-            <p class="date text-shadow is-marginless">2021-06-16</p>
         </div>
     </div>
 </a>
@@ -223,6 +225,27 @@
     <div class="column is-12 is-hidden-desktop">
         
         
+<a class="post-hover" href="/2021/09/14/vector的size-和capacity/" style="height: 48.5%">
+    <div class="content is-hidden-touch full-height overflow-hidden" style="background-image: url('/images/vector_mem.png')">
+        <div class="content-bg-mask full-width full-height has-padding">
+            <h3 class="title is-marginless text-shadow">
+                vector的size()和capacity()
+            </h3>
+            
+            
+            
+            <p class="sub-title text-shadow"></p>
+            <p class="is-marginless text-shadow post-content-text">
+                近期被问到如下问题，以为只是简单的类构造和析构调用关系并且加上vector的重新分配内存问题。
+..
+            </p>
+            <p class="date text-shadow is-marginless">2021-09-14</p>
+        </div>
+    </div>
+</a>
+        
+        
+        
 <a class="post-hover" href="/2021/08/13/mac下的clion配置OpenSSL/" style="height: 48.5%">
     <div class="content is-hidden-touch full-height overflow-hidden" style="background-image: url('/images/mac_install_OpenSSL1.png')">
         <div class="content-bg-mask full-width full-height has-padding">
@@ -241,33 +264,42 @@
     </div>
 </a>
         
-        
-        
-<a class="post-hover" href="/2021/06/16/c-async/" style="height: 48.5%">
-    <div class="content is-hidden-touch full-height overflow-hidden" style="background-image: url('/images/async_destructor.png')">
-        <div class="content-bg-mask full-width full-height has-padding">
-            <h3 class="title is-marginless text-shadow">
-                c++_async()
-            </h3>
-            
-            
-            <span class="tag is-post-tag">c++</span>
-            
-            
-            <p class="sub-title text-shadow"></p>
-            <p class="is-marginless text-shadow post-content-text">
-                1.wait_for或wait_unitil
-此小节更详细的解释可在《Effective Mod..
-            </p>
-            <p class="date text-shadow is-marginless">2021-06-16</p>
-        </div>
-    </div>
-</a>
-        
     </div>
 </div>
 
                     
+                    
+                
+                    
+                        <div class="content-box  is-hidden-desktop" style="margin-bottom: 27px;">
+                            <a class="post-hover" href="/2021/09/14/vector的size-和capacity/">
+                            <div class="columns" style="min-height: 230px;">
+                                
+                                    <div class="column is-4-desktop is-5-tablet post-avatar is-hidden-mobile"
+                                         style="margin: 10px; background-size: cover;background-image: url('/images/vector_mem.png')">
+                                    </div>
+                                
+                                <div class="column is-8-desktop post-content is-flex align-center">
+                                    <div class="content">
+                                        <h3>vector的size()和capacity()</h3>
+                                        
+                                        <p>
+                                            
+                                        </p>
+                                        <p>
+                                            近期被问到如下问题，以为只是简单的类构造和析构调用关系并且加上vector的重新分配内存问题。
+回答完成之后，自己上机跑了一次，发现和自己回答的顺序有出入，仔细查询后发现自己对于vector里的内存分配理解有误。
+1.问题引入1.1原题#include &lt;vector&gt;
+#include &lt;iostream&gt;
+struct Cat..
+                                        </p>
+                                        <p>2021-09-14</p>
+                                        <button class="button is-small">Read More</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                        </div>
                     
                 
                     
@@ -307,7 +339,7 @@ bre..
                     
                 
                     
-                        <div class="content-box  is-hidden-desktop" style="margin-bottom: 27px;">
+                        <div class="content-box  " style="margin-bottom: 27px;">
                             <a class="post-hover" href="/2021/06/16/c-async/">
                             <div class="columns" style="min-height: 230px;">
                                 
@@ -529,36 +561,6 @@ cd libevent-2.1.12-stable.tar.gz
                         </div>
                     
                 
-                    
-                        <div class="content-box  " style="margin-bottom: 27px;">
-                            <a class="post-hover" href="/2021/01/30/JAVA-初学1/">
-                            <div class="columns" style="min-height: 230px;">
-                                
-                                <div class="column is-8-desktop post-content is-flex align-center">
-                                    <div class="content">
-                                        <h3>JAVA_初学1</h3>
-                                        
-                                        <p>
-                                            
-                                        </p>
-                                        <p>
-                                            1.IJ配置代理
-File-&gt;Settings-&gt;Appearance&amp;Behavior-&gt;System Settings-&gt;HTTP  Proxy
-
-具体是socks还是HTTP看自己本地的代理是怎么走的。
-2.Java的interfaceJava的接口需要类去具体实现
-接口可以继承多个接口，类不可以
-在实现接口的时候，..
-                                        </p>
-                                        <p>2021-01-30</p>
-                                        <button class="button is-small">Read More</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                        </div>
-                    
-                
                 <!--翻頁-->
                 <nav class="pagination is-flex" style="justify-content: flex-end">
                     
@@ -672,7 +674,7 @@ File-&gt;Settings-&gt;Appearance&amp;Behavior-&gt;System Settings-&gt;HTTP  Prox
         <!--post数量和tag category 数量-->
         <div class="site-box is-flex">
             <div class="flex-1 is-flex flex-column center full-height right-line">
-                <strong>34</strong>
+                <strong>35</strong>
                 <p>Posts</p>
             </div>
             <div class="flex-1 is-flex flex-column center full-height">
@@ -730,7 +732,7 @@ File-&gt;Settings-&gt;Appearance&amp;Behavior-&gt;System Settings-&gt;HTTP  Prox
             <strong>Archives</strong>
         </div>
         <div class="content-inner">
-            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">September 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">August 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/06/">June 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">April 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">March 2021</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">February 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">January 2021</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">December 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">November 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a><span class="archive-list-count">6</span></li></ul>
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">December 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">September 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">August 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/06/">June 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">April 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">March 2021</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">February 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">January 2021</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">December 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">November 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/09/">September 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a><span class="archive-list-count">6</span></li></ul>
         </div>
     </div>
 </aside>
