@@ -126,6 +126,40 @@
         <div class="box">
             <article class="media">
                 
+                <a href="/2022/03/21/git场景解决-取消最后一次commit/">
+                    
+                    <div class="media-left">
+                        <figure class="image is-128x128">
+                            <img src="/images/git_reset--soft.png" style="height: 100%; width: 100%">
+                        </figure>
+                    </div>
+                    
+                    <div class="media-content">
+                        <div class="content">
+                            <p>
+                                <strong>git场景解决_取消最后一次commit</strong> <small class="post-date">at: 2022-03-21</small>
+                                <br>
+                                
+场景：取消最后一次commit
+
+基本的知识可以观看git总结
+1.git reset —xxx HEAD~ 指令1.1 —soft
+取消commit操作，保留working tree和index的代码
+
+git reset HEAD~1执行之后，会重置为上一次提交,且撤回的提交文件，其状态发生改变，变成unCommit状态。具体操作如下：
+
+重置lo..
+                            </p>
+                            <button class="button is-info">Read</button>
+                        </div>
+                    </div>
+                </a>
+            </article>
+        </div>
+    
+        <div class="box">
+            <article class="media">
+                
                 <a href="/2020/07/17/git空白文件上传问题/">
                     
                     <div class="media-content">
@@ -170,7 +204,7 @@ git add code//这句话会报错“fatal: pathspec &#39;code&#39; did not match 
         <!--请您保留作者署名, 主题制作来之不易-->
         Theme by <a href="https://github.com/haojen" target="_blank" rel="noopener">Haojen Ma</a>
         <br>
-        Copyright © Mervyen 2021
+        Copyright © Mervyen 2022
         <br>
         Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
       </div>

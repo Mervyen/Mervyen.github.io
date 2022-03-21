@@ -173,7 +173,185 @@ ps:如果使用async()不指定std::launch::de..
         <!--请您保留作者署名, 主题制作来之不易-->
         Theme by <a href="https://github.com/haojen" target="_blank" rel="noopener">Haojen Ma</a>
         <br>
-        Copyright © Mervyen 2021
+        Copyright © Mervyen 2022
+        <br>
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+<script src="/js/search_core.js"></script>
+
+
+<script src="/js/script.js"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config("");
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+
+
+</body>
+</html>               
+                    <div class="media-left">
+                        <figure class="image is-128x128">
+                            <img src="/images/smartPtr_up1.png" style="height: 100%; width: 100%">
+                        </figure>
+                    </div>
+                    
+                    <div class="media-content">
+                        <div class="content">
+                            <p>
+                                <strong>smart_ptr</strong> <small class="post-date">at: 2020-11-18</small>
+                                <br>
+                                Smart pointers智能指针全部包含在中，在c++11引入只能指针之后，由程序员分配的指针内存块就不需要程序员再去释放了，智能指针会在结束其生存的时候自动释放这块内存块。虽然指针会释放分配的内存块，但是要注意该内存块不可以被重复释放，否则程序会报错。
+智能指针主要有以下三种，auto_ptr在c++17中移除。
+1.unique_ptr
+std:..
+                            </p>
+                            <button class="button is-info">Read</button>
+                        </div>
+                    </div>
+                </a>
+            </article>
+        </div>
+    
+        <div class="box">
+            <article class="media">
+                
+                <a href="/2020/10/29/lambda-expressions/">
+                    
+                    <div class="media-content">
+                        <div class="content">
+                            <p>
+                                <strong>lambda-expressions</strong> <small class="post-date">at: 2020-10-29</small>
+                                <br>
+                                Lambda expressions也就是匿名函数，是c++11新加入的特性。
+一、语法格式其语法格式如下所示
+
+[ captures ] &lt;tparams&gt;(optionalC++20)( params ) specifiers exception attr -&gt; ret requires(optional)(C++20) { bod..
+                            </p>
+                            <button class="button is-info">Read</button>
+                        </div>
+                    </div>
+                </a>
+            </article>
+        </div>
+    
+        <div class="box">
+            <article class="media">
+                
+                <a href="/2020/09/29/CppCon-2019：Back-to-Basics-Move-Semantics/">
+                    
+                    <div class="media-left">
+                        <figure class="image is-128x128">
+                            <img src="/images/lvaule-rvalue.png" style="height: 100%; width: 100%">
+                        </figure>
+                    </div>
+                    
+                    <div class="media-content">
+                        <div class="content">
+                            <p>
+                                <strong>CppCon 2019：Back to Basics: Move Semantics</strong> <small class="post-date">at: 2020-09-29</small>
+                                <br>
+                                粗略记录，等最近跑完所有测试代码更新此文章。
+一、左右值问题    c++的值类型一共分为5种，5种值的包含关系如上图所示。(参考cppreference：Value categories）。其中xvalue是move所产生的。    rvalue和lvalue的判别方式不能光看其在‘=’左还是右。最主要的就是看当前值是否拥有name，这个name其实也..
+                            </p>
+                            <button class="button is-info">Read</button>
+                        </div>
+                    </div>
+                </a>
+            </article>
+        </div>
+    
+        <div class="box">
+            <article class="media">
+                
+                <a href="/2020/08/29/重载new-delete，new-delete/">
+                    
+                    <div class="media-left">
+                        <figure class="image is-128x128">
+                            <img src="/images/new_delete.png" style="height: 100%; width: 100%">
+                        </figure>
+                    </div>
+                    
+                    <div class="media-content">
+                        <div class="content">
+                            <p>
+                                <strong>重载new|delete，new[]|delete[]</strong> <small class="post-date">at: 2020-08-29</small>
+                                <br>
+                                一、new，delete和new[]，delete[]1.new和new[]主要完成两个动作(按如下顺序执行)
+
+调用void* operator new和void* operator new[]进行内存分配，这两个函数其实就是malloc的一层封装。
+自定义的类，且有构造函数。会再次调用类的构造函数进行初始化。次层是由系统自己完成的，不可以由程序员进行..
+                            </p>
+                            <button class="button is-info">Read</button>
+                        </div>
+                    </div>
+                </a>
+            </article>
+        </div>
+    
+        <div class="box">
+            <article class="media">
+                
+                <a href="/2020/08/07/static和extern关键字/">
+                    
+                    <div class="media-content">
+                        <div class="content">
+                            <p>
+                                <strong>static和extern关键字</strong> <small class="post-date">at: 2020-08-07</small>
+                                <br>
+                                对于static关键字的用途主要可以按照以下两个方面 
+
+作用域生存期
+
+1.静态局部变量
+①.static修饰的局部变量会在全局数据区分配内存（局部变量会分配在栈区，随着函数的结束而消亡）。所以static修饰的变量更适用于递归函数。②.static修饰的变量仅在程序第一次执行到该变量定义的定义时进行初始化，当再次执行到该该行时，程序并不会对此静态变量..
+                            </p>
+                            <button class="button is-info">Read</button>
+                        </div>
+                    </div>
+                </a>
+            </article>
+        </div>
+    
+</div>
+      </div>
+  </div>
+  <style>
+  #footer {
+    min-height: 10vh;
+    background: black;
+    color: #fff;
+  }
+
+  #footer a {
+    color: #e1e1e1;
+  }
+</style>
+<footer id="footer" class="has-text-centered is-flex center">
+  <div class="container has-padding">
+    <div>
+      <div>
+        <!--请您保留作者署名, 主题制作来之不易-->
+        Theme by <a href="https://github.com/haojen" target="_blank" rel="noopener">Haojen Ma</a>
+        <br>
+        Copyright © Mervyen 2022
         <br>
         Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
       </div>
